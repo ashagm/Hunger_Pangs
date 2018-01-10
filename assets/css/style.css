@@ -1,0 +1,25 @@
+body{
+	margin: 0 auto;
+	font-family: 'Playfair Display SC', serif;
+}
+
+#landing-page{
+    min-height: 100vh;
+    min-width: 100vw;
+    background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
+/*    display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+#results-page{
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+#content-results,
+#content-map{
+	min-height: 100vh;
+	border: 1px solid red;
+}
+

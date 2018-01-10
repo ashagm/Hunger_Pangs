@@ -7,10 +7,42 @@
 	<title>Hunger Pangs</title>
 	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC|Sedgwick+Ave+Display" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
 
-	
+	<div class="container" id="landing-page">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>
+					<i class="fa fa-cutlery" aria-hidden="true"></i> 
+					HUNGER PANGS 
+					<i class="fa fa-cutlery" aria-hidden="true"></i>
+				</h1>
+			</div>
+		</div>
+		<div class="row">	
+			<div class="col-md-12">
+				<h4>Enter your location</h4>
+				<input type="text" name="address" id="user-input" placeholder="address" required >
+				<button class="btn btn-info" id="add-btn" type="submit" value="submit">Submit</button>
+			</div>
+		</div>	
+	</div>
+
+	<div class="container" id="results-page">
+		<div class="row">
+			<div class="col-md-7" id="content-results">	
+			RESULTS SECTION			
+			</div>
+			<div class="col-md-5" id="content-map">	
+				MAP SECTION
+				<div id="map"></div>			
+			</div>
+		</div>
+	</div>
 
 	 <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
