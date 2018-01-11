@@ -26,7 +26,7 @@
 		<div class="row">	
 			<div class="col-md-12">
 				<h4>Enter your location</h4>
-				<input type="text" name="address" id="user-input" placeholder="address" required >
+				<input type="text" name="address" id="user-input" placeholder="Enter location" required >
 				<button class="btn btn-info" id="add-btn" type="submit" value="submit">Submit</button>
 			</div>
 		</div>	
@@ -34,24 +34,28 @@
 
 	<div class="container" id="results-page">
 		<div class="row">
-			<div class="col-md-7" id="content-results">	
-			RESULTS SECTION			
-			</div>
-			<div class="col-md-5" id="content-map">	
-				MAP SECTION
+			<div class="col-md-8" id="content-map">	
 				<div id="map"></div>			
+			</div>
+			<div class="col-md-4" id="content-results">			
 			</div>
 		</div>
 	</div>
 
 	 <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	<script type="text/javascript" src="assets/js/map.js"></script>
 	<script type="text/javascript" src="assets/js/yelp.js"></script>
+
+	<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5nfc8TusPKRVU-vuf6S8XEE9Vk5spMs&callback=initMap">
+	</script>
+
+
 
 </body>
 </html>
