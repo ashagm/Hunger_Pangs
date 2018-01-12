@@ -1,6 +1,30 @@
 body{
 	margin: 0 auto;
-	font-family: 'Playfair Display SC', serif;
+	font-family: 'Arial Black';
+}
+
+
+h4 {
+    color: white;
+    font-size: 35px;
+    text-align: center;
+    font-weight: bold;
+    font-family:'Playfair Display SC', serif;
+
+}
+
+#title {
+    color: white;
+    font-size: 85px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#add-btn {
+    background-color: red;
+    height: 60px;
+    width: 120px;
+    margin-left: 20px;
 }
 
 #landing-page{
@@ -17,10 +41,22 @@ body{
     min-width: 100vw;
 }
 
+#user-input {
+
+margin-left: 435px;
+
+}
+
 #content-results,
 #content-map{
 	min-height: 100vh;
 	border: 1px solid red;
+}
+
+.jumbotron
+{
+    height: 650px;
+    background: url("burgers.jpeg");
 }
 
 #map {
