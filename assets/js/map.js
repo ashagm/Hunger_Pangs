@@ -1,3 +1,5 @@
+// https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
+
 let latitude = 40.730813;
 let longitude = -74.065983;
 
@@ -17,12 +19,21 @@ function initMap() {
 	  center: uluru
 	});
 
+	var image = 'assets/images/rutgers-icon.jpg';
+
 	var marker = new google.maps.Marker({
 	  position: uluru,
 	  title : "Your location",
-	  map: map
+	  map: map,
+	  icon: image
 	});
 
 	var geocoder = new google.maps.Geocoder();
+
+}
+
+
+function getCooridinates(){
+	let address = localStorage.getItem('input-address');
 
 }
