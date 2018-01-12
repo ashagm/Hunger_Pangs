@@ -5,28 +5,30 @@ $(document).ready(function() {
 	// ONLY places to eat, limit results to 10, within 1 mile of userLocation
 
 
-	$('#user-input').submit(function(event) {
-		let userLocation = $('#add-btn').val().trim();
+	$('#add-btn').on('click', function(event) {
+		let userLocation = $('#user-input').val().trim();
 		event.preventDefault();
-	})
 
-	const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation;
-	const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
+		const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation;
+		const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
 	
-	console.log(userLocation);	
+		console.log(userLocation);	
 
-	$.ajax({
-		url: proxyUrl + queryURL,
-		headers: {
-			authorization: 'Bearer ' + //insert Yelp api
-	})
+		$.ajax({
+			url: proxyUrl + queryURL,
+			headers: {
+				authorization: 'Bearer ' //insert Yelp api
+			}
+		}).done(response => {
+			console.log(response);
+		})
 
-	.done(response => {
-		console.log(response);
-	})
-
-	.catch(error => {
-		console.error(error);
+		.catch(error => {
+			console.error(error);
+		});
 	});
+
+
+	
 
 })	
