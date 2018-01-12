@@ -27,6 +27,8 @@ $(document).ready(function() {
 		console.log(response);
 		const results = response.data;
 
+		displayMarkers(response); //Added by Asha, keep this to send yelp response to map.js file
+
 		for (let i = 0; i < results.length; i++) {
 			const restaurantName = results[i].businesses.name;
 			const restuarantDistance = results[i].businesses.distance;

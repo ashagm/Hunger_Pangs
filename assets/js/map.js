@@ -7,13 +7,15 @@ let uluru = {
 	lng: longitude
 };
 
+let numOfResults = 10;
 //get the Div of map view
+let map;
 let mapDiv = document.getElementById("map");
 
 //initialize the map
 function initMap() {
 
-	let map = new google.maps.Map(mapDiv, {
+	map = new google.maps.Map(mapDiv, {
 	  zoom: 14,
 	  center: uluru
 	});
@@ -55,3 +57,42 @@ function getCoordinates(resultsMap){
           }
     });
 }
+
+function displayMarkers(yelpResponse){
+	console.log('In displayMarkers', yelpResponse);
+
+	$.each(yelpResponse, function(key, value){
+		console.log("businesses", yelpResponse.businesses);
+
+		for(let i=0; i< numOfResults; i++){
+			var latitude_business = yelpResponse.businesses[i].coordinates.latitude;
+			var longitude_business = yelpResponse.businesses[i].coordinates.longitude;
+			// console.log(latitude_business, longitude_business);
+			paintMarkers(latitude_business, longitude_business);
+		}		
+	});
+}
+
+function paintMarkers(latitude, longitude){
+	console.log("in paint markers", latitude, longitude);
+	// var map = new google.maps.Map(document.getElementById('map'), {
+	// 	  zoom: 8,
+	// 	  center: uluru
+	// });
+
+	var marker = new google.maps.Marker({
+		map: map,
+		position: {
+			lat: latitude, 
+			lng: longitude
+		}
+		// icon: {
+		// 	url: 'https://developers.google.com/maps/documentation/javascript/images/circle.png',
+		// 	anchor: new google.maps.Point(10, 10),
+		// 	scaledSize: new google.maps.Size(10, 17)
+		// }
+	});
+
+}
+
+
