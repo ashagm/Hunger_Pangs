@@ -1,2 +1,0 @@
-window.yelpkey = 'OZscrgovCzS7QRiOySG6zhu4i9R9LMeQLYN-EtOXvZ8WdyiYup_NGlDDPq-50il_VHt1nd3QPmN0Oq8xW7JkvGuiucxkFmzqJ2Bmh6G7BghJIPIi0CBy3UxsZwJYWnYx';
-window.mapkey ='AIzaSyAy5nfc8TusPKRVU-vuf6S8XEE9Vk5spMs';
