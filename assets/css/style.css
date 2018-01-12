@@ -40,7 +40,6 @@ h4 {
     margin-left: 20px;
 }
 
-
 #heading{
     margin-top: 220px;
 }
@@ -56,18 +55,17 @@ h4 {
     height: 100px;
     padding: 20px;
     text-align: center;
-    border-bottom : 5px solid red;
+    border-bottom : 3px solid #fff;
 }
 
-#results-bottom{
-    
+#results-bottom .col{
+    margin : 10px 10px;
 }
 
 #content-results,
 #content-map{
 	min-height: 80vh;
-    margin: 0 auto;
-	border: 5px solid red;
+	border: 1px solid #fff;
 }
 
 #map {
