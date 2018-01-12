@@ -22,5 +22,7 @@ function initMap() {
 	  title : "Your location",
 	  map: map
 	});
-}
 
+	var geocoder = new google.maps.Geocoder();
+
+}

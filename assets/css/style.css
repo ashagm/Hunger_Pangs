@@ -1,16 +1,48 @@
 body{
 	margin: 0 auto;
-	font-family: 'Arial Black';
+    font-family:'Playfair Display SC', 'Arial Black',  serif;
 }
-
 
 h4 {
     color: white;
     font-size: 35px;
     text-align: center;
     font-weight: bold;
-    font-family:'Playfair Display SC', serif;
+}
 
+#landing-page{
+    min-height: 100vh;
+    min-width: 100vw;
+    background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
+    background-image: url(" ../images/burgers.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#results-page{
+    min-height: 100vh;
+    min-width: 100vw;
+    background-image: url(" ../images/bg-2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#user-input {
+    margin-left: 435px;
+    width : 400px;
+    padding: 10px;
+}
+
+#add-btn {
+    background-color: red;
+    width: 120px;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+
+#heading{
+    margin-top: 220px;
 }
 
 #title {
@@ -20,43 +52,22 @@ h4 {
     font-weight: bold;
 }
 
-#add-btn {
-    background-color: red;
-    height: 60px;
-    width: 120px;
-    margin-left: 20px;
+#results-top{
+    height: 100px;
+    padding: 20px;
+    text-align: center;
+    border-bottom : 5px solid red;
 }
 
-#landing-page{
-    min-height: 100vh;
-    min-width: 100vw;
-    background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
-/*    display: flex;
-    justify-content: center;
-    align-items: center; */
-}
-
-#results-page{
-    min-height: 100vh;
-    min-width: 100vw;
-}
-
-#user-input {
-
-margin-left: 435px;
-
+#results-bottom{
+    
 }
 
 #content-results,
 #content-map{
-	min-height: 100vh;
-	border: 1px solid red;
-}
-
-.jumbotron
-{
-    height: 650px;
-    background: url("burgers.jpeg");
+	min-height: 80vh;
+    margin: 0 auto;
+	border: 5px solid red;
 }
 
 #map {
