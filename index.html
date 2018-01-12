@@ -15,37 +15,29 @@
 
 	<div class="container" id="landing-page">
 		<div class="row">
+			<div class="col-md-12" id="heading">
+				<h1 class="display-4" id="title">
+				<i class="fa fa-cutlery" aria-hidden="true"></i>  HUNGER PANGS  
+				<i class="fa fa-cutlery" aria-hidden="true"></i></h1>
+				 <p class="lead"><h4>Enter your location</h4></p>
+			</div>	
+		</div>		
+    	<div class="row">	
 			<div class="col-md-12">
-				<div class="jumbotron jumbotron-fluid">
-  					<div class="container">
-   						 <h1 class="display-4" id="title">HUNGER PANGS</h1>
-
-   						
-   						 <br>
-   						 <br>
-
-    <p class="lead"><h4>Enter your location</h4></p>
-
-   						 <br>
-   						 <br>
-
-    <div class="row">	
-			<div class="col-md-12">
-				<!-- <h4>Enter you</h4> -->
 				<input type="text" name="address" id="user-input" placeholder="Enter location" required >
 				<button class="btn btn-info" id="add-btn" type="submit" value="submit">Submit</button>
 			</div>
-
-  </div>
-</div>
-
-			</div>
 		</div>
-		
-	</div>
+  	</div>
 
 	<div class="container" id="results-page">
-		<div class="row">
+		<div class ="row" id="results-top">
+			<div class="col-md-12">
+				<input type="text" name="address" id="page-input" placeholder="Enter location" required >
+				<button class="btn btn-info" id="page-btn" type="submit" value="submit">Submit</button>
+			</div>
+		</div>
+		<div class="row" id="results-bottom">
 			<div class="col-md-8" id="content-map">	
 				<div id="map"></div>			
 			</div>
