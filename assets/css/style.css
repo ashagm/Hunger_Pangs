@@ -58,3 +58,10 @@ margin-left: 435px;
     height: 650px;
     background: url("burgers.jpeg");
 }
+
+#map {
+    height: 100%;
+    width: 100%;
+    background-color: grey;
+}
+

@@ -1,11 +1,16 @@
 $(document).ready(function(){
-  $("#results-page").hide();
-});
+	$("#results-page").hide();
 
-$("#add-btn").on('click', function (event) {
-    event.preventDefault();
-   $("#results-page").show(); 
-  $('html,body').animate({
-    scrollTop: $("#results-page").offset().top},
-  'slow');
+	$("#add-btn").on('click', function (event) {
+		event.preventDefault();
+		$("#results-page").show(); 
+		
+		if($('#user-input').val() === ''){
+			return false;
+		} else {
+			$('html,body').animate({
+				scrollTop: $("#results-page").offset().top},
+				'slow');
+		}
+	});
 });
