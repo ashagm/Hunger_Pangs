@@ -16,6 +16,8 @@ $(document).ready(function(){
 				'slow');
 			
 			$('#page-input').val(localStorage.getItem("input-address"));
+
+			initMap(); //todo - not doing here keeps the map blank
 		}
 	});
 });
