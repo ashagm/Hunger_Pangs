@@ -35,6 +35,7 @@
 				const restaurantRating = results[i].rating;
 				const restaurantImg = $('<img>');
 				restaurantImg.addClass('restaurant-img');
+				restaurantImg.attr("src", results[i].image_url);
 				$('#content-results').append(restaurantName);
 				$('#content-results').append(restaurantDistance);
 				$('#content-results').append(restaurantPhone);
