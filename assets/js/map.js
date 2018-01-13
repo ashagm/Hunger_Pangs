@@ -1,6 +1,8 @@
 //get the Div of map view
 let map;
 let mapDiv = document.getElementById("map");
+
+//defualt values in case
 let latitude = 40.730813;
 let longitude = -74.065983;
 
@@ -20,10 +22,10 @@ function initMap() {
 	});
 }
 
+//zoom to the input location 
 function drawInitMap(){
 
 	let inputAddress = localStorage.getItem('input-address');
-	// console.log('****drawInitMap****', inputAddress);
 
 	let uluru = {
 		lat: latitude, 
@@ -45,9 +47,9 @@ function drawInitMap(){
 				map.setCenter(results[0].geometry.location);
 
 				var marker = new google.maps.Marker({
-				  map: map,
-				  position: results[0].geometry.location,
-				  icon: 'assets/images/home-icon.png'
+					map: map,
+					position: results[0].geometry.location,
+					icon: 'assets/images/home-icon.png'
 				});
 			} else {
 				alert('Geocode was not successful for the following reason: ' + status);
@@ -59,7 +61,7 @@ function drawInitMap(){
 function displayMarkers(yelpResponse){
 	// console.log('In displayMarkers', yelpResponse.businesses);
 
-	for(let i=0; i< numOfResults; i++){
+	for(let i = 0; i < numOfResults; i++){
 		var latitude_business = yelpResponse.businesses[i].coordinates.latitude;
 		var longitude_business = yelpResponse.businesses[i].coordinates.longitude;
 
@@ -69,7 +71,6 @@ function displayMarkers(yelpResponse){
 
 function paintMarker(latitude, longitude){
 	// console.log("in paint markers", latitude, longitude);
-
 	var marker = new google.maps.Marker({
 		map: map,
 		position: {
@@ -85,6 +86,68 @@ function zoomToLocation(latitude, longitude){
  	 map.setCenter(center);
  	 map.setZoom(20);
 }
+
+function getLatLong(address){
+
+	var latLongObj = {};
+	var geocoder = new google.maps.Geocoder();
+
+	geocoder.geocode(
+		{
+		'address': address
+		}, function(results, status) {
+			if (status === 'OK') {
+				return latLongObj ={
+					latitude : results[0].geometry.location.lat(),
+					longitude : results[0].geometry.location.lng()
+				}
+			} else {
+				alert('Geocode was not successful for the following reason: ' + status);
+			}
+    });
+
+}
+
+function getAddress(latitude, longitude){
+
+	var latlng = new google.maps.LatLng(latitude, longitude);
+    var geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            console.log("results", results, results[0].formatted_address);
+            return results[0].formatted_address;
+        }else{
+        	alert(status);
+        }
+    });
+}
+
+// function showDirection(origin, destination){
+// 	var origin1 = new google.maps.LatLng(55.930385, -3.118425);
+// 	var origin2 = 'Greenwich, England';
+// 	var destinationA = 'Stockholm, Sweden';
+// 	var destinationB = new google.maps.LatLng(50.087692, 14.421150);
+
+// 	var service = new google.maps.DistanceMatrixService();
+// 	service.getDistanceMatrix(
+// 	{
+// 		origins: [origin1, origin2],
+// 		destinations: [destinationA, destinationB],
+// 		travelMode: 'DRIVING',
+// 		transitOptions: TransitOptions,
+// 		drivingOptions: DrivingOptions,
+// 		unitSystem: UnitSystem,
+// 		avoidHighways: Boolean,
+// 		avoidTolls: Boolean,
+// 	}, callback);
+
+// 	function callback(response, status) {
+// 	// See Parsing the Results for
+// 	// the basics of a callback function.
+// 	}
+
+// }
 
 //todo- delete later - only for yelp testing
 
@@ -104,7 +167,6 @@ function getYelpResults(){
 			const results = response.businesses;
 
 			for (let i = 0; i < 3; i++) {
-
 				let newDiv = $('<div>');
 				newDiv.css("background-color", "#000");
 				newDiv.append("<h5>" + results[i].name + "</h5>");
@@ -112,7 +174,7 @@ function getYelpResults(){
 				newDiv.append(results[i].phone);
 				newDiv.append(results[i].rating);
 				newDiv.append("<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Location</p>");
-		
+				newDiv.append("<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Directions</p>");
 				// newDiv.append(restaurantImg);
 				newDiv.append("<br>")
 
