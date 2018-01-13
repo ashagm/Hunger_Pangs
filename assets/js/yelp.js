@@ -8,9 +8,9 @@ $(document).ready(function() {
 	let userLocation =  $('#add-btn').on('click', function(event) {
 		event.preventDefault();		
 		$('#user-input').val().trim();
-	})
+	});
 
-	const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + "limit=10radius=1610categories=restaurants,all";
+	const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + "&limit=10&radius=1610&categories=restaurants,all";
 	const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
 	
 	console.log(userLocation);
@@ -23,34 +23,30 @@ $(document).ready(function() {
 		}
 	})
 
-	.done(response => {
-		console.log(response);
-		const results = response.data;
+		.done(response => {
+			console.log(response);
+			const results = response.businesses;
 
-		displayMarkers(response); //Added by Asha, keep this to send yelp response to map.js file
+			displayMarkers(response); //Added by Asha, keep this to send yelp response to map.js file
 
-		for (let i = 0; i < results.length; i++) {
-			const restaurantName = results[i].businesses.name;
-			const restuarantDistance = results[i].businesses.distance;
-			const restuarantPhone = results[i].businesses.phone;
-			const restaurantRating = results[i].businesses.rating;
-			const restaurantImg = $('<img>');
-			restaurantImg.addClass('restaurant-img');
-			$('#content-results').append(restaurantName);
-			$('#content-results').append(restuarantDistance);
-			$('#content-results').append(restuarantPhone);
-			$('#content-results').append(restaurantRating);
-			$('#content-results').append(restaurantImg);
-		};
-	});
+			for (let i = 0; i < 10; i++) {
+				const restaurantName = results[i].name;
+				const restuarantDistance = results[i].distance;
+				const restuarantPhone = results[i].phone;
+				const restaurantRating = results[i].rating;
+				const restaurantImg = $('<img>');
+				restaurantImg.addClass('restaurant-img');
+				$('#content-results').append(restaurantName);
+				$('#content-results').append(restuarantDistance);
+				$('#content-results').append(restuarantPhone);
+				$('#content-results').append(restaurantRating);
+				$('#content-results').append(restaurantImg);
+			};
+		})
 
-	.catch(error => {
-		console.error(error);
-	});
-
-
-})	
-	
+		.catch(error => {
+			console.error(error);
+		});
 
 })	
 
