@@ -36,5 +36,13 @@ $(document).ready(function(){
 		}
 
 	});
+
+	$("#content-results").on('click', '.direction', function(){
+		let latitude = $(this).attr('data-lat');
+		let longitude = $(this).attr('data-long');
+		console.log(latitude, longitude);
+
+		zoomToLocation(latitude, longitude);
+	});
 	
 });
