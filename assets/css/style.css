@@ -1,5 +1,5 @@
 body{
-	margin: 0 auto;
+    margin: 0 auto;
     font-family:'Playfair Display SC', 'Arial Black',  serif;
 }
 
@@ -70,8 +70,8 @@ h4 {
 
 #content-results,
 #content-map{
-	min-height: 80vh;
-	border: 1px solid #fff;
+    min-height: 80vh;
+    border: 1px solid #fff;
 }
 
 #map {
@@ -79,4 +79,3 @@ h4 {
     width: 100%;
     background-color: grey;
 }
-
