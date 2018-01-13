@@ -78,7 +78,6 @@ function paintMarker(latitude, longitude){
 		},
 		icon: 'assets/images/food-icon-1.png'
 	});
-
 }
 
 
