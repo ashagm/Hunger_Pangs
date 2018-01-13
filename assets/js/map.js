@@ -76,7 +76,7 @@ function paintMarker(latitude, longitude){
 			lat: latitude, 
 			lng: longitude
 		},
-		icon: 'assets/images/food-icon-1.png'
+		icon: 'assets/images/food-icon.png'
 	});
 }
 
