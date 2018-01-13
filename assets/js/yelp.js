@@ -31,15 +31,19 @@
 			for (let i = 0; i < results.length; i++) {
 				const restaurantName = results[i].name;
 				const restaurantDistance = results[i].distance;
+				const restaurantDistanceMiles = (restaurantDistance * 0.0006213).toFixed(2);
+				const pDistance = $("<p>").text("Distance: " + restaurantDistanceMiles + " miles");
 				const restaurantPhone = results[i].phone;
+				const pPhone = $("<p>").text("Phone: " + restaurantPhone);
 				const restaurantRating = results[i].rating;
+				const pRating = $("<p>").text("Yelp rating: " + restaurantRating);
 				const restaurantImg = $('<img>');
 				restaurantImg.addClass('restaurant-img');
 				restaurantImg.attr("src", results[i].image_url);
 				$('#content-results').append(restaurantName);
-				$('#content-results').append(restaurantDistance);
-				$('#content-results').append(restaurantPhone);
-				$('#content-results').append(restaurantRating);
+				$('#content-results').append(pDistance);
+				$('#content-results').append(pPhone);
+				$('#content-results').append(pRating);
 				$('#content-results').append(restaurantImg);
 			};
 		})
