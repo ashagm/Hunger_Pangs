@@ -33,6 +33,12 @@ h4 {
     padding: 10px;
 }
 
+#page-input{
+    width : 400px;
+    padding: 10px;
+}
+
+#page-btn,
 #add-btn {
     background-color: red;
     width: 120px;

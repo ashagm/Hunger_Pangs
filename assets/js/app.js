@@ -21,5 +21,20 @@ $(document).ready(function(){
 			getYelpResults();
 		}
 	});
+
+	$("#page-btn").on('click', function(event){
+		event.preventDefault();
+
+		if($('#page-input').val() === ''){
+			return false;
+		} else {
+			localStorage.clear();
+      		localStorage.setItem("input-address", $('#page-input').val());
+
+			drawInitMap(); 
+			getYelpResults();
+		}
+
+	});
 	
 });
