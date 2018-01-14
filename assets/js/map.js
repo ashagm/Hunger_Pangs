@@ -1,5 +1,6 @@
 //get the Div of map view
 let map;
+let uluru;
 let mapDiv = document.getElementById("map");
 
 //defualt values in case
@@ -11,7 +12,7 @@ let numOfResults = 10;
 //initialize the map
 function initMap() {
 
-	let uluru = {
+	uluru = {
 		lat: latitude, 
 		lng: longitude
 	};
@@ -27,7 +28,7 @@ function drawInitMap(){
 
 	let inputAddress = localStorage.getItem('input-address');
 
-	let uluru = {
+	uluru = {
 		lat: latitude, 
 		lng: longitude
 	};
@@ -81,15 +82,17 @@ function paintMarker(latitude, longitude){
 	});
 }
 
+//zoom the map given a latitude and longitude
 function zoomToLocation(latitude, longitude){
 	var center = new google.maps.LatLng(latitude, longitude);
  	 map.setCenter(center);
- 	 map.setZoom(20);
+ 	 map.setZoom(18);
 }
 
-function getLatLong(address){
+//function to convert a given address to latitude and longitude
+function getLatLong(address, callback){
 
-	var latLongObj = {};
+	// var latLongObj = {};
 	var geocoder = new google.maps.Geocoder();
 
 	geocoder.geocode(
@@ -97,10 +100,11 @@ function getLatLong(address){
 		'address': address
 		}, function(results, status) {
 			if (status === 'OK') {
-				return latLongObj ={
-					latitude : results[0].geometry.location.lat(),
-					longitude : results[0].geometry.location.lng()
-				}
+				callback(
+					{
+						latitude : results[0].geometry.location.lat(),
+						longitude : results[0].geometry.location.lng()
+					});
 			} else {
 				alert('Geocode was not successful for the following reason: ' + status);
 			}
@@ -108,49 +112,54 @@ function getLatLong(address){
 
 }
 
-function getAddress(latitude, longitude){
+//function to convert an address to latitude and longitude
+function getAddress(latitude, longitude, callback){
 
 	var latlng = new google.maps.LatLng(latitude, longitude);
     var geocoder = new google.maps.Geocoder();
 
+    let address = "";
+
     geocoder.geocode({ 'latLng': latlng }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            console.log("results", results, results[0].formatted_address);
-            return results[0].formatted_address;
+            address =  results[0].formatted_address;
+            console.log("**getAddress**", address);
+        	callback(address);
         }else{
         	alert(status);
         }
+
     });
 }
 
-// function showDirection(origin, destination){
-// 	var origin1 = new google.maps.LatLng(55.930385, -3.118425);
-// 	var origin2 = 'Greenwich, England';
-// 	var destinationA = 'Stockholm, Sweden';
-// 	var destinationB = new google.maps.LatLng(50.087692, 14.421150);
+function calculateTimeDistance(origin, destination){
 
-// 	var service = new google.maps.DistanceMatrixService();
-// 	service.getDistanceMatrix(
-// 	{
-// 		origins: [origin1, origin2],
-// 		destinations: [destinationA, destinationB],
-// 		travelMode: 'DRIVING',
-// 		transitOptions: TransitOptions,
-// 		drivingOptions: DrivingOptions,
-// 		unitSystem: UnitSystem,
-// 		avoidHighways: Boolean,
-// 		avoidTolls: Boolean,
-// 	}, callback);
+	console.log("**calculateTimeDistance**", origin, destination);
 
-// 	function callback(response, status) {
-// 	// See Parsing the Results for
-// 	// the basics of a callback function.
-// 	}
+	var service = new google.maps.DistanceMatrixService();
+	
+	service.getDistanceMatrix(
+	{
+		origins: [origin],
+		destinations: [destination],
+		travelMode: google.maps.TravelMode.WALKING,
+		unitSystem: google.maps.UnitSystem.IMPERIAL,
+		avoidHighways: true,
+		avoidTolls: true,
+	}, callback);
 
-// }
+	function callback(response, status) {
+		console.log('**calculateTimeDistance-response**', status, response);
+
+		return {
+			duration : response.rows[0].elements[0].duration.text,
+			distance : response.rows[0].elements[0].distance.text
+		}
+	}
+
+}
 
 //todo- delete later - only for yelp testing
-
 function getYelpResults(){
 
 		let userLocation = localStorage.getItem("input-address");
@@ -160,7 +169,7 @@ function getYelpResults(){
 		$.ajax({
 			url: proxyUrl + queryURL,
 			headers: {
-				authorization: 'Bearer ' + "OZscrgovCzS7QRiOySG6zhu4i9R9LMeQLYN-EtOXvZ8WdyiYup_NGlDDPq-50il_VHt1nd3QPmN0Oq8xW7JkvGuiucxkFmzqJ2Bmh6G7BghJIPIi0CBy3UxsZwJYWnYx"
+				authorization: 'Bearer ' + yelpAPI
 			}
 		}).done(response => {
 			displayMarkers(response); //Added by Asha, keep this to send yelp response to map.js file
