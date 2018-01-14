@@ -160,41 +160,41 @@ function calculateTimeDistance(origin, destination){
 }
 
 //todo- delete later - only for yelp testing
-function getYelpResults(){
+// function getYelpResults(){
 
-		let userLocation = localStorage.getItem("input-address");
-		const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + "&limit=10&radius=1610&term=food&open_now=true";
-		const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
+// 		let userLocation = localStorage.getItem("input-address");
+// 		const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + "&limit=10&radius=1610&term=food&open_now=true";
+// 		const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
 		
-		$.ajax({
-			url: proxyUrl + queryURL,
-			headers: {
-				authorization: 'Bearer ' + yelpAPI
-			}
-		}).done(response => {
-			displayMarkers(response); //Added by Asha, keep this to send yelp response to map.js file
-			const results = response.businesses;
+// 		$.ajax({
+// 			url: proxyUrl + queryURL,
+// 			headers: {
+// 				authorization: 'Bearer ' + yelpAPI
+// 			}
+// 		}).done(response => {
+// 			displayMarkers(response); //Added by Asha, keep this to send yelp response to map.js file
+// 			const results = response.businesses;
 
-			for (let i = 0; i < 3; i++) {
-				let newDiv = $('<div>');
-				newDiv.css("background-color", "#000");
-				newDiv.append("<h5>" + results[i].name + "</h5>");
-				newDiv.append(results[i].distance);
-				newDiv.append(results[i].phone);
-				newDiv.append(results[i].rating);
-				newDiv.append("<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Location</p>");
-				newDiv.append("<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Directions</p>");
-				// newDiv.append(restaurantImg);
-				newDiv.append("<br>")
+// 			for (let i = 0; i < 3; i++) {
+// 				let newDiv = $('<div>');
+// 				newDiv.css("background-color", "#000");
+// 				newDiv.append("<h5>" + results[i].name + "</h5>");
+// 				newDiv.append(results[i].distance);
+// 				newDiv.append(results[i].phone);
+// 				newDiv.append(results[i].rating);
+// 				newDiv.append("<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Location</p>");
+// 				newDiv.append("<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Directions</p>");
+// 				// newDiv.append(restaurantImg);
+// 				newDiv.append("<br>")
 
-				$('#content-results').append(newDiv);
-			}
+// 				$('#content-results').append(newDiv);
+// 			}
 
-		}).catch(error => {
-			console.error(error);
-		});
+// 		}).catch(error => {
+// 			console.error(error);
+// 		});
 
-	}
+// 	}
 
 
 
