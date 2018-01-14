@@ -42,7 +42,7 @@ $(document).ready(function(){
 		let longitude = $(this).attr('data-long');
 		console.log(latitude, longitude);
 
-		zoomToLocation(latitude, longitude);
+		// zoomToLocation(latitude, longitude);
 
 		let origin = localStorage.getItem("input-address");
 				

@@ -1,5 +1,7 @@
 //get the Div of map view
 let map;
+let marker;
+let infowindow;
 let uluru;
 let mapDiv = document.getElementById("map");
 
@@ -47,11 +49,14 @@ function drawInitMap(){
 			if (status === 'OK') {
 				map.setCenter(results[0].geometry.location);
 
-				var marker = new google.maps.Marker({
-					map: map,
-					position: results[0].geometry.location,
-					icon: 'assets/images/home-icon.png'
-				});
+				// marker = new google.maps.Marker({
+				// 	map: map,
+				// 	position: results[0].geometry.location,
+				// 	icon: 'assets/images/home-icon.png'
+				// });
+
+				createMarker(results[0].geometry.location, "Your location", 12, 'assets/images/home-icon-2.png', 90);
+
 			} else {
 				alert('Geocode was not successful for the following reason: ' + status);
 			}
@@ -66,28 +71,66 @@ function displayMarkers(yelpResponse){
 		var latitude_business = yelpResponse.businesses[i].coordinates.latitude;
 		var longitude_business = yelpResponse.businesses[i].coordinates.longitude;
 
-		paintMarker(latitude_business, longitude_business);
+		// paintMarker(latitude_business, longitude_business);
+
+		createMarker(
+			{
+				lat: latitude_business, 
+				lng: longitude_business
+			},
+			"address", 
+			18, 
+			'assets/images/food-icon-2.png', 70)
+												
 	}		
 }
 
-function paintMarker(latitude, longitude){
-	// console.log("in paint markers", latitude, longitude);
-	var marker = new google.maps.Marker({
-		map: map,
-		position: {
-			lat: latitude, 
-			lng: longitude
-		},
-		icon: 'assets/images/food-icon.png'
-	});
+function createMarker(latlng, txt, zoom, image, size) {
+	console.log("IncreateMarker ", latlng, txt, zoom, image, size);
+    infowindow = new google.maps.InfoWindow;
+
+    marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        icon: {
+        	url: image,
+        	scaledSize : new google.maps.Size(size, size)
+        }
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(txt); 
+        infowindow.open(map, marker);
+    });
+
+    marker.MyZoom = zoom; 
+    return marker; 
 }
 
 //zoom the map given a latitude and longitude
 function zoomToLocation(latitude, longitude){
 	var center = new google.maps.LatLng(latitude, longitude);
  	 map.setCenter(center);
- 	 map.setZoom(18);
+ 	 map.setZoom(18); 	 
+
+ 	 getAddress(latitude, longitude, function(address){
+ 	 	console.log("in zoomlocation" , address);
+ 	 	showInfo(address);
+ 	 });
 }
+
+// adds info window to marker --testing
+function showInfo(address) {
+	infowindow = new google.maps.InfoWindow;
+	infowindow.setContent("<span class='infotext'" + address + "</span>");	
+	infowindow.open(map, this);
+
+	// marker.addListener('click', function() {	
+	// 	infowindow.setContent("<span class='infotext'" + address + "</span>");	
+	// 	infowindow.open(map, this);
+	// });
+}
+
 
 //function to convert a given address to latitude and longitude
 function getLatLong(address, callback){
@@ -118,18 +161,30 @@ function getAddress(latitude, longitude, callback){
 	var latlng = new google.maps.LatLng(latitude, longitude);
     var geocoder = new google.maps.Geocoder();
 
-    let address = "";
-
     geocoder.geocode({ 'latLng': latlng }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            address =  results[0].formatted_address;
-            console.log("**getAddress**", address);
-        	callback(address);
+        	callback(results[0].formatted_address);
         }else{
         	alert(status);
         }
 
     });
+}
+
+function paintMarker(latitude, longitude){
+	console.log("in paint markers", latitude, longitude);
+	marker = new google.maps.Marker({
+		map: map,
+		position: {
+			lat: latitude, 
+			lng: longitude
+		},
+		icon: {
+			url : 'assets/images/food-icon-2.png',
+			scaledSize : new google.maps.Size(70, 70)
+		}
+	});
+
 }
 
 function calculateTimeDistance(origin, destination){
@@ -158,6 +213,7 @@ function calculateTimeDistance(origin, destination){
 	}
 
 }
+
 
 //todo- delete later - only for yelp testing
 // function getYelpResults(){
