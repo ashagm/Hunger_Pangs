@@ -43,6 +43,13 @@ $(document).ready(function(){
 		console.log(latitude, longitude);
 
 		zoomToLocation(latitude, longitude);
+
+		let origin = localStorage.getItem("input-address");
+				
+		getAddress(latitude, longitude, function(destination){
+			calculateTimeDistance(origin, destination);
+		});
+
 	});
 	
 });
