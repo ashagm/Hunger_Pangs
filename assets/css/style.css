@@ -1,6 +1,5 @@
 body{
     margin: 0 auto;
-    position: relative;
     font-family:'Playfair Display SC', 'Arial Black',  serif;
 }
 
@@ -71,7 +70,7 @@ h4 {
 
 #content-results,
 #content-map{
-    height: 530px;
+    height: 500px;
     border: 1px solid #fff;
     color: #fff;
 }
@@ -83,11 +82,9 @@ h4 {
 }
 
 .infotext{
-    color: #000;
-}
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
 
-#footer{
-    color: #fff;
-    font-size: 14px;
-    text-align: center;
 }
