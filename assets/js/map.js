@@ -2,35 +2,21 @@
 let map;
 let marker;
 let infowindow;
-let mapCenter;
-let mapCanvas = document.getElementById("map");
 
 //defualt values in case
 let latitude = 40.730813;
 let longitude = -74.065983;
 
+let mapCenter;
+
+let searchResultsList = [];
+let mapCanvas = document.getElementById("map");
+
+let inputAddress;
 let numOfResults = 10;
 
 //initialize the map
 function initMap() {
-
-	mapCenter = {
-		lat: latitude, 
-		lng: longitude
-	};
-
-	mapOptions = {
-		zoom: 4,
-		center: mapCenter
-	}
-
-	map = new google.maps.Map(mapCanvas, mapOptions);
-}
-
-//render map after an input value is entered
-function drawInitMap(){
-
-	let inputAddress = localStorage.getItem('input-address');
 
 	mapCenter = {
 		lat: latitude, 
@@ -43,53 +29,61 @@ function drawInitMap(){
 	}
 
 	map = new google.maps.Map(mapCanvas, mapOptions);
-
-	var geocoder = new google.maps.Geocoder();
-
-	geocoder.geocode(
-		{
-		'address': inputAddress
-		}, function(results, status) {
-			if (status === 'OK') {
-				map.setCenter(results[0].geometry.location);
-				createMarker(results[0].geometry.location, "YOU ARE HERE!", 12, 'assets/images/home-icon-2.png', 90, google.maps.Animation.BOUNCE);
-
-			} else {
-				alert('Geocode was not successful for the following reason: ' + status);
-			}
-    });
-
 }
 
-//show points of yelp results
+//convert input address into lat/long and display on the map
+function drawInitMap(){	
+
+	initMap();
+	inputAddress = localStorage.getItem('input-address');
+
+	getLatLong(inputAddress, function(latlng){
+
+		map.setCenter(
+		{
+			lat: latlng.latitude,
+			lng: latlng.longitude
+		});
+
+		createMarker({
+						lat: latlng.latitude,
+						lng: latlng.longitude
+					 }, 
+					"YOU ARE HERE! @ " + inputAddress, 
+					12, 
+					'assets/images/home-icon-2.png',
+					90, 
+					google.maps.Animation.BOUNCE);
+
+		});
+}
+
+//get points of yelp results
 function displayMarkers(yelpResponse){
 
-	console.log(yelpResponse.businesses);
+	console.log("**Yelp Results**", yelpResponse);
 
 	for(let i = 0; i < numOfResults; i++){
-		var latitude_business = yelpResponse.businesses[i].coordinates.latitude;
-		var longitude_business = yelpResponse.businesses[i].coordinates.longitude;
+		let latitude_business = yelpResponse[i].coordinates.latitude;
+		let longitude_business = yelpResponse[i].coordinates.longitude;
 
-		// paintMarker(latitude_business, longitude_business);
-
-		let infoText = yelpResponse.businesses[i].name +'--' + yelpResponse.businesses[i].price;
+		let infoText = yelpResponse[i].name +'--' + yelpResponse[i].price;
 
 		createMarker(
 			{
 				lat: latitude_business, 
 				lng: longitude_business
 			},
-			infoText
-			, 
+			infoText			, 
 			22, 
 			'assets/images/food-icon-3.png', 
-			// yelpResponse.businesses[i].image_url,
 			80,
 			google.maps.Animation.DROP);
 												
 	}		
 }
 
+//show markers with infowindows
 function createMarker(latlng, txt, zoom, image, size, anime) {
 
     infowindow = new google.maps.InfoWindow;
@@ -104,14 +98,17 @@ function createMarker(latlng, txt, zoom, image, size, anime) {
         }
     });
 
-    google.maps.event.addListener(marker, 'click', function() {
+    google.maps.event.addListener(marker, 'mouseover', function() {
         infowindow.setContent("<p class='infotext'>" + txt + "</p>"); 
         infowindow.open(map, this);
     });
 
+    google.maps.event.addListener(marker, 'mouseout', function() {
+        infowindow.close(map, this);
+    });
+
     marker.setMap(map);
     marker.MyZoom = zoom; 
-    // return marker; 
 }
 
 //zoom the map given a latitude and longitude
@@ -119,10 +116,6 @@ function zoomToLocation(latitude, longitude, zoom){
 	var center = new google.maps.LatLng(latitude, longitude);
  	 map.setCenter(center);
  	 map.setZoom(zoom); 	 
-
- 	 getAddress(latitude, longitude, function(address){
- 	 	console.log("in zoomlocation" , address);
- 	 });
 }
 
 //function to convert a given address to latitude and longitude
@@ -161,22 +154,6 @@ function getAddress(latitude, longitude, callback){
         }
 
     });
-}
-
-function paintMarker(latitude, longitude){
-	console.log("in paint markers", latitude, longitude);
-	marker = new google.maps.Marker({
-		map: map,
-		position: {
-			lat: latitude, 
-			lng: longitude
-		},
-		icon: {
-			url : 'assets/images/food-icon-2.png',
-			scaledSize : new google.maps.Size(70, 70)
-		}
-	});
-
 }
 
 function calculateTimeDistance(origin, destination){
@@ -238,44 +215,3 @@ function drawRouteToDestination(destPoint){
 		});
 
 }
-
-
-//todo- delete later - only for yelp testing
-// function getYelpResults(){
-
-// 		let userLocation = localStorage.getItem("input-address");
-// 		const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + "&limit=10&radius=1610&term=food&open_now=true";
-// 		const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
-		
-// 		$.ajax({
-// 			url: proxyUrl + queryURL,
-// 			headers: {
-// 				authorization: 'Bearer ' + yelpAPI
-// 			}
-// 		}).done(response => {
-// 			displayMarkers(response); //Added by Asha, keep this to send yelp response to map.js file
-// 			const results = response.businesses;
-
-// 			for (let i = 0; i < 3; i++) {
-// 				let newDiv = $('<div>');
-// 				newDiv.css("background-color", "#000");
-// 				newDiv.append("<h5>" + results[i].name + "</h5>");
-// 				newDiv.append(results[i].distance);
-// 				newDiv.append(results[i].phone);
-// 				newDiv.append(results[i].rating);
-// 				newDiv.append("<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Location</p>");
-// 				newDiv.append("<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Directions</p>");
-// 				// newDiv.append(restaurantImg);
-// 				newDiv.append("<br>")
-
-// 				$('#content-results').append(newDiv);
-// 			}
-
-// 		}).catch(error => {
-// 			console.error(error);
-// 		});
-
-// 	}
-
-
-
