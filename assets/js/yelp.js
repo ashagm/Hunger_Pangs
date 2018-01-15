@@ -16,9 +16,9 @@ function getYelpResults(){
 		headers: {
 			authorization: 'Bearer ' + yelpAPI
 		}
-	}).done(response => {
-		displayMarkers(response); 
+	}).done(response => {		
 		const results = response.businesses;
+		displayMarkers(results); 
 
 		for (let i = 0; i < results.length; i++) {
 			const restaurantName = results[i].name;
