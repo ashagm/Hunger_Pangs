@@ -40,7 +40,6 @@ $(document).ready(function(){
 	$("#content-results").on('click', '.direction', function(){
 		let latitude = $(this).attr('data-lat');
 		let longitude = $(this).attr('data-long');
-		console.log(latitude, longitude);
 
 		let origin = localStorage.getItem("input-address");
 		// drawRouteToDestination(origin, {destLat: latitude, destLong: longitude});
@@ -50,5 +49,13 @@ $(document).ready(function(){
 		});
 
 	});
+
+	$("#number-menu .dropdown-item").on('click', function(event){
+		event.preventDefault();
+		$("#selected-value").text($(this).text()); 
+		numOfResults = $(this).text();
+		drawInitMap(); 
+		getYelpResults();
+	})
 	
 });
