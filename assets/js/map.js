@@ -61,7 +61,7 @@ function drawInitMap(){
 //get points of yelp results
 function displayMarkers(yelpResponse){
 
-	console.log("**Yelp Results**", yelpResponse);
+	console.log("**Yelp Results**", numOfResults, yelpResponse);
 
 	for(let i = 0; i < numOfResults; i++){
 		let latitude_business = yelpResponse[i].coordinates.latitude;

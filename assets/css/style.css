@@ -88,3 +88,7 @@ h4 {
     text-transform: uppercase;
 
 }
+
+#number-menu{
+    min-width: 1rem;
+}
