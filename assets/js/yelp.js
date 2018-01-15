@@ -6,7 +6,7 @@
 function getYelpResults(){
 
 	let userLocation = localStorage.getItem("input-address");
-	const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + "&limit=10&radius=1610&term=food&open_now=true";
+	const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + "&limit=20&radius=1610&term=food&open_now=true";
 	const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
 
 	$('#content-results').empty();
@@ -16,9 +16,9 @@ function getYelpResults(){
 		headers: {
 			authorization: 'Bearer ' + yelpAPI
 		}
-	}).done(response => {
-		displayMarkers(response); 
+	}).done(response => {		
 		const results = response.businesses;
+		displayMarkers(results); 
 
 		for (let i = 0; i < results.length; i++) {
 			const restaurantName = results[i].name;
@@ -38,7 +38,7 @@ function getYelpResults(){
 			$('#content-results').append(pPhone);
 			$('#content-results').append(pRating);
 			$('#content-results').append("<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Get Directions!</p>");
-			// $('#content-results').append(restaurantImg);
+			$('#content-results').append(restaurantImg);
 		};
 
 	}).catch(error => {

@@ -34,6 +34,17 @@
 			<div class="col-md-12">
 				<input type="text" name="address" id="page-input" placeholder="Enter location" required >
 				<button class="btn btn-info" id="page-btn" type="submit" value="submit">Submit</button>
+				<div class="btn-group">
+					<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+					id="selected-value">
+					10
+					</button>
+					<div class="dropdown-menu" id="number-menu">
+						<a class="dropdown-item" href="#">5</a>
+						<a class="dropdown-item" href="#">10</a>
+						<a class="dropdown-item" href="#">15</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row" id="results-bottom">
@@ -43,6 +54,12 @@
 			<div class="col col-md-4" id="content-results">			
 			</div>
 		</div>
+		<div class="row " id="footer">
+			<div class="col-md-12">
+				<p>Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by the <i class="fa fa-cutlery" aria-hidden="true"></i> Hungry <i class="fa fa-cutlery" aria-hidden="true"></i> bunch!</p>
+			</div>
+		</div>
+	</div>
 	</div>
 
 	 <!-- jQuery first, then Tether, then Bootstrap JS. -->

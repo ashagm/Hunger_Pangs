@@ -70,8 +70,8 @@ h4 {
 
 #content-results,
 #content-map{
-	min-height: 80vh;
-	border: 1px solid #fff;
+    height: 500px;
+    border: 1px solid #fff;
     color: #fff;
 }
 
@@ -79,4 +79,16 @@ h4 {
     height: 100%;
     width: 100%;
     background-color: grey;
+}
+
+.infotext{
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+
+}
+
+#number-menu{
+    min-width: 1rem;
 }
