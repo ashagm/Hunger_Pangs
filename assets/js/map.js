@@ -2,8 +2,8 @@
 let map;
 let marker;
 let infowindow;
-let uluru;
-let mapDiv = document.getElementById("map");
+let mapCenter;
+let mapCanvas = document.getElementById("map");
 
 //defualt values in case
 let latitude = 40.730813;
@@ -14,31 +14,35 @@ let numOfResults = 10;
 //initialize the map
 function initMap() {
 
-	uluru = {
+	mapCenter = {
 		lat: latitude, 
 		lng: longitude
 	};
 
-	map = new google.maps.Map(mapDiv, {
-		zoom: 12,
-		center: uluru
-	});
+	mapOptions = {
+		zoom: 4,
+		center: mapCenter
+	}
+
+	map = new google.maps.Map(mapCanvas, mapOptions);
 }
 
-//zoom to the input location 
+//render map after an input value is entered
 function drawInitMap(){
 
 	let inputAddress = localStorage.getItem('input-address');
 
-	uluru = {
+	mapCenter = {
 		lat: latitude, 
 		lng: longitude
 	};
 
-	map = new google.maps.Map(mapDiv, {
+	mapOptions = {
 		zoom: 14,
-		center: uluru
-	});
+		center: mapCenter
+	}
+
+	map = new google.maps.Map(mapCanvas, mapOptions);
 
 	var geocoder = new google.maps.Geocoder();
 
@@ -48,14 +52,7 @@ function drawInitMap(){
 		}, function(results, status) {
 			if (status === 'OK') {
 				map.setCenter(results[0].geometry.location);
-
-				// marker = new google.maps.Marker({
-				// 	map: map,
-				// 	position: results[0].geometry.location,
-				// 	icon: 'assets/images/home-icon.png'
-				// });
-
-				createMarker(results[0].geometry.location, "Your location", 12, 'assets/images/home-icon-2.png', 90);
+				createMarker(results[0].geometry.location, "YOU ARE HERE!", 12, 'assets/images/home-icon-2.png', 90, google.maps.Animation.BOUNCE);
 
 			} else {
 				alert('Geocode was not successful for the following reason: ' + status);
@@ -64,8 +61,10 @@ function drawInitMap(){
 
 }
 
+//show points of yelp results
 function displayMarkers(yelpResponse){
-	// console.log('In displayMarkers', yelpResponse.businesses);
+
+	console.log(yelpResponse.businesses);
 
 	for(let i = 0; i < numOfResults; i++){
 		var latitude_business = yelpResponse.businesses[i].coordinates.latitude;
@@ -73,69 +72,62 @@ function displayMarkers(yelpResponse){
 
 		// paintMarker(latitude_business, longitude_business);
 
+		let infoText = yelpResponse.businesses[i].name +'--' + yelpResponse.businesses[i].price;
+
 		createMarker(
 			{
 				lat: latitude_business, 
 				lng: longitude_business
 			},
-			"address", 
-			18, 
-			'assets/images/food-icon-2.png', 70)
+			infoText
+			, 
+			22, 
+			'assets/images/food-icon-3.png', 
+			// yelpResponse.businesses[i].image_url,
+			80,
+			google.maps.Animation.DROP);
 												
 	}		
 }
 
-function createMarker(latlng, txt, zoom, image, size) {
-	console.log("IncreateMarker ", latlng, txt, zoom, image, size);
+function createMarker(latlng, txt, zoom, image, size, anime) {
+
     infowindow = new google.maps.InfoWindow;
 
     marker = new google.maps.Marker({
         position: latlng,
         map: map,
+        animation: anime,
         icon: {
         	url: image,
-        	scaledSize : new google.maps.Size(size, size)
+        	scaledSize : new google.maps.Size(size, size),        	
         }
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(txt); 
-        infowindow.open(map, marker);
+        infowindow.setContent("<p class='infotext'>" + txt + "</p>"); 
+        infowindow.open(map, this);
     });
 
+    marker.setMap(map);
     marker.MyZoom = zoom; 
-    return marker; 
+    // return marker; 
 }
 
 //zoom the map given a latitude and longitude
-function zoomToLocation(latitude, longitude){
+function zoomToLocation(latitude, longitude, zoom){
 	var center = new google.maps.LatLng(latitude, longitude);
  	 map.setCenter(center);
- 	 map.setZoom(18); 	 
+ 	 map.setZoom(zoom); 	 
 
  	 getAddress(latitude, longitude, function(address){
  	 	console.log("in zoomlocation" , address);
- 	 	showInfo(address);
  	 });
 }
-
-// adds info window to marker --testing
-function showInfo(address) {
-	infowindow = new google.maps.InfoWindow;
-	infowindow.setContent("<span class='infotext'" + address + "</span>");	
-	infowindow.open(map, this);
-
-	// marker.addListener('click', function() {	
-	// 	infowindow.setContent("<span class='infotext'" + address + "</span>");	
-	// 	infowindow.open(map, this);
-	// });
-}
-
 
 //function to convert a given address to latitude and longitude
 function getLatLong(address, callback){
 
-	// var latLongObj = {};
 	var geocoder = new google.maps.Geocoder();
 
 	geocoder.geocode(
@@ -189,7 +181,7 @@ function paintMarker(latitude, longitude){
 
 function calculateTimeDistance(origin, destination){
 
-	console.log("**calculateTimeDistance**", origin, destination);
+	// console.log("**calculateTimeDistance**", origin, destination);
 
 	var service = new google.maps.DistanceMatrixService();
 	
@@ -211,6 +203,39 @@ function calculateTimeDistance(origin, destination){
 			distance : response.rows[0].elements[0].distance.text
 		}
 	}
+
+}
+
+function drawRouteToDestination(destPoint){
+
+	let destination = new google.maps.LatLng(destPoint.destLatitude,destPoint.longitude);
+
+	getLatLong(localStorage.getItem('input-address'), function(response){
+		console.log("drawRouteToDestination response", response.latitude);
+		console.log("drawRouteToDestination response", response.longitude);
+
+		var origin = new google.maps.LatLng(response.latitude, response.longitude);
+
+		mapOptions = 
+		{
+			// center: origin, 
+			zoom: 2
+		};
+
+		map = new google.maps.Map(mapCanvas,mapOptions);
+
+		var flightPath = new google.maps.Polyline({
+			path: [origin, destination],
+			strokeColor: "#0000FF",
+			strokeOpacity: 0.8,
+			strokeWeight: 2
+		});
+
+		console.log(flightPath);
+
+		flightPath.setMap(map)
+
+		});
 
 }
 
