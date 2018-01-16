@@ -42,10 +42,9 @@ $(document).ready(function(){
 		let longitude = $(this).attr('data-long');
 
 		let origin = localStorage.getItem("input-address");
-		// drawRouteToDestination(origin, {destLat: latitude, destLong: longitude});
 				
 		getAddress(latitude, longitude, function(destination){
-			calculateTimeDistance(origin, destination);
+			// getDirections(origin, destination);
 		});
 
 	});

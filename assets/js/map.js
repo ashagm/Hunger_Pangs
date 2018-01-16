@@ -14,6 +14,8 @@ let mapCanvas = document.getElementById("map");
 
 let inputAddress;
 let numOfResults = 10;
+let directionsDisplay;
+let directionsService;
 
 //initialize the map
 function initMap() {
@@ -171,62 +173,61 @@ function getAddress(latitude, longitude, callback){
     });
 }
 
-function calculateTimeDistance(origin, destination){
+//test function to get textual directions  
 
-	// console.log("**calculateTimeDistance**", origin, destination);
+// function getDirections(start, end){
+// 	directionsDisplay = new google.maps.DirectionsRenderer;
+//     directionsService = new google.maps.DirectionsService;
 
-	var service = new google.maps.DistanceMatrixService();
+//   	directionsDisplay.setMap(map);
+// 	directionsDisplay.setPanel(document.getElementById('content-results'));
+
+//     directionsService.route({
+//           origin: start,
+//           destination: end,
+//           travelMode: 'WALKING'
+//         }, function(response, status) {
+//           if (status === 'OK') {
+//   			directionsDisplay.set('directions', null);
+//             directionsDisplay.setDirections(response);
+//           } else {
+//             console.log('Directions request failed due to ' + status);
+//           }
+//     });
+// }
+
+// function getYelpResults(){
+
+// 	let userLocation = localStorage.getItem("input-address");
+// 	const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + 
+// 	"&limit=20&radius=1610&term=food&open_now=true";
+// 	const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
+
+// 	$('#content-results').empty();
 	
-	service.getDistanceMatrix(
-	{
-		origins: [origin],
-		destinations: [destination],
-		travelMode: google.maps.TravelMode.WALKING,
-		unitSystem: google.maps.UnitSystem.IMPERIAL,
-		avoidHighways: true,
-		avoidTolls: true,
-	}, callback);
+// 	$.ajax({
+// 		url: proxyUrl + queryURL,
+// 		headers: {
+// 			authorization: 'Bearer ' + yelpAPI
+// 		}
+// 	}).done(response => {		
+// 		const results = response.businesses;
+// 		displayMarkers(results); 
 
-	function callback(response, status) {
-		console.log('**calculateTimeDistance-response**', status, response);
+// 		for (let i = 0; i < numOfResults; i++) {
+// 			let newDiv = $('<div class="div-result">');
+// 			newDiv.css("border-bottom", "2px solid #fff")
+// 			let content = "<h5>" + results[i].name + "</h5>" +
+// 			"<span> Distance : " + (results[i].distance * 0.0006213).toFixed(2) + " Miles</span>" + 
+// 			"<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Get Directions!</p>";
+// 			newDiv.html(content);
+// 			$('#content-results').append(newDiv);
+// 		}
 
-		return {
-			duration : response.rows[0].elements[0].duration.text,
-			distance : response.rows[0].elements[0].distance.text
-		}
-	}
+// 	}).catch(error => {
+// 		console.error(error);
+// 	});
 
-}
+// }
 
-function drawRouteToDestination(destPoint){
 
-	let destination = new google.maps.LatLng(destPoint.destLatitude,destPoint.longitude);
-
-	getLatLong(localStorage.getItem('input-address'), function(response){
-		console.log("drawRouteToDestination response", response.latitude);
-		console.log("drawRouteToDestination response", response.longitude);
-
-		var origin = new google.maps.LatLng(response.latitude, response.longitude);
-
-		mapOptions = 
-		{
-			// center: origin, 
-			zoom: 2
-		};
-
-		map = new google.maps.Map(mapCanvas,mapOptions);
-
-		var flightPath = new google.maps.Polyline({
-			path: [origin, destination],
-			strokeColor: "#0000FF",
-			strokeOpacity: 0.8,
-			strokeWeight: 2
-		});
-
-		console.log(flightPath);
-
-		flightPath.setMap(map)
-
-		});
-
-}
