@@ -175,12 +175,14 @@ function getAddress(latitude, longitude, callback){
 
 //test function to get textual directions  
 
-// function getDirections(start, end){
+// function getDirections(start, end, id){
 // 	directionsDisplay = new google.maps.DirectionsRenderer;
 //     directionsService = new google.maps.DirectionsService;
 
 //   	directionsDisplay.setMap(map);
-// 	directionsDisplay.setPanel(document.getElementById('content-results'));
+// 	directionsDisplay.setPanel(document.getElementById(id));
+// 	document.getElementById(id).innerHTML = "";
+// 	directionsDisplay.setOptions( { suppressMarkers: true } );
 
 //     directionsService.route({
 //           origin: start,
@@ -190,6 +192,7 @@ function getAddress(latitude, longitude, callback){
 //           if (status === 'OK') {
 //   			directionsDisplay.set('directions', null);
 //             directionsDisplay.setDirections(response);
+
 //           } else {
 //             console.log('Directions request failed due to ' + status);
 //           }
@@ -218,9 +221,28 @@ function getAddress(latitude, longitude, callback){
 // 			let newDiv = $('<div class="div-result">');
 // 			newDiv.css("border-bottom", "2px solid #fff")
 // 			let content = "<h5>" + results[i].name + "</h5>" +
-// 			"<span> Distance : " + (results[i].distance * 0.0006213).toFixed(2) + " Miles</span>" + 
-// 			"<p class='direction' data-lat =" + results[i].coordinates.latitude + " data-long=" + results[i].coordinates.longitude + ">Get Directions!</p>";
-// 			newDiv.html(content);
+// 			"<span> Distance : " + (results[i].distance * 0.0006213).toFixed(2) + " Miles</span>" ;
+// 			newDiv.append(content);
+
+// 			let newLink = $("<a>").attr(
+// 				{
+// 					"href" : "#collapse-link-" + i,
+// 					"data-toggle" : 'collapse',
+// 					"data-lat" : results[i].coordinates.latitude,
+// 					"data-long" : results[i].coordinates.longitude,
+// 					"class" : 'direction'
+// 				});
+
+// 			newLink.text('Get Directions');
+
+// 			newDiv.append(newLink);
+
+// 			let collapseDiv = $("<div>");
+// 			collapseDiv.attr('id', 'collapse-link-' + i);
+// 			collapseDiv.attr('class', 'collapse');
+// 			collapseDiv.attr('class', 'directionsDiv');
+// 			newDiv.append(collapseDiv);
+			
 // 			$('#content-results').append(newDiv);
 // 		}
 
