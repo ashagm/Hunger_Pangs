@@ -94,11 +94,21 @@ h4 {
     background-color: #fff;
 }
 
+.directionsDiv{
+    background-color: #fff;
+}
+
 #number-menu{
     min-width: 1rem;
+}
+
+.restaurant-img{
+    height: 100px;
+    width: 150px;
 }
 
 #footer{
     color: #fff;
     text-align: center;
 }
+
