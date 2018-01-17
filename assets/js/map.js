@@ -1,4 +1,4 @@
-/get the Div of map view
+//get the Div of map view
 let map;
 let marker;
 let infowindow;
