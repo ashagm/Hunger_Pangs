@@ -71,7 +71,7 @@ h4 {
 
 #content-results,
 #content-map{
-    height: 500px;
+    height: 530px;
     border: 1px solid #fff;
     color: #fff;
 }
@@ -111,5 +111,6 @@ h4 {
 #footer{
     color: #fff;
     text-align: center;
+    font-size: 14px;
 }
 
