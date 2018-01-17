@@ -92,3 +92,8 @@ h4 {
 #number-menu{
     min-width: 1rem;
 }
+
+.restaurant-img{
+    height: 100px;
+    width: 150px;
+}
