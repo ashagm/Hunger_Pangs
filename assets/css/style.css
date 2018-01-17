@@ -86,7 +86,12 @@ h4 {
     font-weight: bold;
     font-size: 16px;
     text-transform: uppercase;
+    font-family:'Playfair Display SC', 'Arial Black',  serif;
 
+}
+
+.directionsDiv{
+    background-color: #fff;
 }
 
 .directionsDiv{

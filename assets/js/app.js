@@ -41,11 +41,12 @@ $(document).ready(function(){
 		let latitude = $(this).attr('data-lat');
 		let longitude = $(this).attr('data-long');
 
+		let directionsId = $(this).siblings('div').attr('id');
+
 		let origin = localStorage.getItem("input-address");
-		// drawRouteToDestination(origin, {destLat: latitude, destLong: longitude});
 				
 		getAddress(latitude, longitude, function(destination){
-			calculateTimeDistance(origin, destination);
+			// getDirections(origin, destination, directionsId);
 		});
 
 	});

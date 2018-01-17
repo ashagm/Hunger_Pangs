@@ -26,6 +26,7 @@ function getYelpResults(){
 			const restaurantDistanceMiles = (restaurantDistance * 0.0006213).toFixed(2);
 			const pDistance = $("<p>").text("Distance: " + restaurantDistanceMiles + " miles");
 			const restaurantPhone = results[i].phone;
+			// restaurantPhone.text((\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$);
 			const pPhone = $("<p>").text("Phone: " + restaurantPhone);
 			const restaurantRating = results[i].rating;
 			const pRating = $("<p>").text("Yelp rating: " + restaurantRating);
