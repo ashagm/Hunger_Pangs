@@ -89,6 +89,10 @@ h4 {
 
 }
 
+.directionsDiv{
+    background-color: #fff;
+}
+
 #number-menu{
     min-width: 1rem;
 }
@@ -96,4 +100,9 @@ h4 {
 .restaurant-img{
     height: 100px;
     width: 150px;
+}
+
+#footer{
+    color: #fff;
+    text-align: center;
 }
