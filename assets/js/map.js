@@ -76,7 +76,7 @@ function displayMarkers(yelpResponse){
 				lat: latitude_business, 
 				lng: longitude_business
 			},
-			infoText			, 
+			infoText, 
 			22, 
 			'assets/images/food-icon-3.png', 
 			80,
@@ -100,14 +100,29 @@ function createMarker(latlng, txt, zoom, image, size, anime) {
         }
     });
 
+    //on mouseover show info
     google.maps.event.addListener(marker, 'mouseover', function() {
         infowindow.setContent("<p class='infotext'>" + txt + "</p>"); 
         infowindow.open(map, this);
     });
 
+    //on mouseout remove info
     google.maps.event.addListener(marker, 'mouseout', function() {
         infowindow.close(map, this);
     });
+
+    //on click, zoom in and time out after 3 secs
+    google.maps.event.addListener(marker,'click',function() {
+    	var pos = map.getZoom();
+    	var center = map.getCenter();
+    	map.setZoom(18);
+    	map.setCenter(this.getPosition());
+    	window.setTimeout(
+    		function() {
+    			map.setZoom(pos);
+    			map.setCenter(center);
+    		},3000);
+  	});
 
     marker.setMap(map);
     marker.MyZoom = zoom; 
@@ -159,7 +174,6 @@ function getAddress(latitude, longitude, callback){
 }
 
 //test function to get textual directions  
-
 // function getDirections(start, end, id){
 // 	directionsDisplay = new google.maps.DirectionsRenderer;
 //     directionsService = new google.maps.DirectionsService;
@@ -230,7 +244,6 @@ function getAddress(latitude, longitude, callback){
 			
 // 			$('#content-results').append(newDiv);
 // 		}
-
 // 	}).catch(error => {
 // 		console.error(error);
 // 	});
