@@ -86,9 +86,19 @@ h4 {
     font-weight: bold;
     font-size: 16px;
     text-transform: uppercase;
+    font-family:'Playfair Display SC', 'Arial Black',  serif;
 
+}
+
+.directionsDiv{
+    background-color: #fff;
 }
 
 #number-menu{
     min-width: 1rem;
+}
+
+#footer{
+    color: #fff;
+    text-align: center;
 }
