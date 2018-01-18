@@ -4,4 +4,3 @@
 
 * Google Maps API 
 * Yelp API 
-* Wunderground API
