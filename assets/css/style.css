@@ -3,13 +3,6 @@ body{
     font-family:'Playfair Display SC', 'Arial Black',  serif;
 }
 
-h4 {
-    color: white;
-    font-size: 35px;
-    text-align: center;
-    font-weight: bold;
-}
-
 #landing-page{
     min-height: 100vh;
     min-width: 100vw;
@@ -25,6 +18,10 @@ h4 {
     background-image: url(" ../images/bg-2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#results-page .btn-group{
+    margin-left: 20px;
 }
 
 #user-input {
@@ -65,14 +62,19 @@ h4 {
     border-bottom : 3px solid #fff;
 }
 
+#results-bottom{
+    margin: 0 auto;
+}
+
 #results-bottom .col{
-    margin : 10px 10px;
+    margin : 10px 15px;
+    padding : 0px;
 }
 
 #content-results,
 #content-map{
     height: 530px;
-    border: 1px solid #fff;
+    border: 5px solid #fff;
     color: #fff;
 }
 
@@ -88,11 +90,16 @@ h4 {
     font-size: 16px;
     text-transform: uppercase;
     font-family:'Playfair Display SC', 'Arial Black',  serif;
-
 }
 
 .directionsDiv{
     background-color: #fff;
+}
+
+#selected-value,
+#selected-food{
+    background-color: red;
+    color: #fff;
 }
 
 #food-menu,
