@@ -2,6 +2,9 @@
 let map;
 let marker;
 let infowindow;
+let directionsDisplay;
+let directionsService;
+let autocomplete;
 
 //defualt values in case
 let latitude = 40.730813;
@@ -14,8 +17,6 @@ let mapCanvas = document.getElementById("map");
 
 let inputAddress;
 let numOfResults = 10;
-let directionsDisplay;
-let directionsService;
 
 //initialize the map
 function initMap() {
@@ -31,6 +32,7 @@ function initMap() {
 	}
 
 	map = new google.maps.Map(mapCanvas, mapOptions);
+  
 }
 
 //convert input address into lat/long and display on the map
@@ -66,21 +68,25 @@ function displayMarkers(yelpResponse){
 	console.log("**Yelp Results**", numOfResults, yelpResponse);
 
 	for(let i = 0; i < numOfResults; i++){
-		let latitude_business = yelpResponse[i].coordinates.latitude;
-		let longitude_business = yelpResponse[i].coordinates.longitude;
+    if(yelpResponse[i] != null){
+  		let latitude_business = yelpResponse[i].coordinates.latitude;
+  		let longitude_business = yelpResponse[i].coordinates.longitude;
 
-		let infoText = yelpResponse[i].name +'--' + yelpResponse[i].price;
+  		let infoText = yelpResponse[i].name +'--' + yelpResponse[i].price;
 
-		createMarker(
-			{
-				lat: latitude_business, 
-				lng: longitude_business
-			},
-			infoText, 
-			22, 
-			'assets/images/food-icon-3.png', 
-			80,
-			google.maps.Animation.DROP);
+  		createMarker(
+  			{
+  				lat: latitude_business, 
+  				lng: longitude_business
+  			},
+  			infoText, 
+  			22, 
+  			'assets/images/food-icon-3.png', 
+  			80,
+  			google.maps.Animation.DROP);
+    }else{
+      console.log("End of results");
+    }
 												
 	}		
 }
