@@ -19,6 +19,7 @@ $(document).ready(function(){
 
 			drawInitMap(); //todo - not doing here keeps the map blank
 			getYelpResults();
+			// getYelpSearchResults();
 		}
 	});
 
@@ -33,6 +34,7 @@ $(document).ready(function(){
 
 			drawInitMap(); 
 			getYelpResults();
+			// getYelpSearchResults();
 		}
 
 	});
@@ -57,6 +59,7 @@ $(document).ready(function(){
 		numOfResults = $(this).text();
 		drawInitMap(); 
 		getYelpResults();
+		// getYelpSearchResults();
 	});
 
 	$("#food-menu .dropdown-item").on('click', function(event){
@@ -65,6 +68,7 @@ $(document).ready(function(){
 		localStorage.setItem("input-category", $(this).text());
 		drawInitMap(); 
 		getYelpResults();
+		// getYelpSearchResults();
 	});
 	
 });

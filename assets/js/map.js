@@ -18,6 +18,15 @@ let mapCanvas = document.getElementById("map");
 let inputAddress;
 let numOfResults = 10;
 
+const markerImages = {
+  'Indian': 'assets/images/food-icon-indian.png',
+  'Italian' : 'assets/images/food-icon-italian.png',
+  'Mexican' : 'assets/images/food-icon-mexican.png',
+  'Chinese' : 'assets/images/food-icon-chinese.gif',
+  'Cafe' : 'assets/images/food-icon-cafe.png',  
+  'All' : 'assets/images/food-icon-3.png'
+}
+
 //initialize the map
 function initMap() {
 
@@ -66,13 +75,15 @@ function drawInitMap(){
 function displayMarkers(yelpResponse){
 
 	console.log("**Yelp Results**", numOfResults, yelpResponse);
+  let markerImage = getMarkerIcon();
 
 	for(let i = 0; i < numOfResults; i++){
-    if(yelpResponse[i] != null){
+
+    if(yelpResponse[i] && yelpResponse[i] != null && yelpResponse[i] != undefined ){
   		let latitude_business = yelpResponse[i].coordinates.latitude;
   		let longitude_business = yelpResponse[i].coordinates.longitude;
 
-  		let infoText = yelpResponse[i].name +'--' + yelpResponse[i].price;
+  		let infoText = yelpResponse[i].name +'--' + yelpResponse[i].price;    
 
   		createMarker(
   			{
@@ -81,14 +92,26 @@ function displayMarkers(yelpResponse){
   			},
   			infoText, 
   			22, 
-  			'assets/images/food-icon-3.png', 
+  			markerImage, 
   			80,
   			google.maps.Animation.DROP);
     }else{
       console.log("End of results");
+      break; 
     }
 												
 	}		
+}
+
+function getMarkerIcon(){
+  let category = localStorage.getItem("input-category");
+
+  if(category){
+    return markerImages[category];
+  }
+  
+  return 'assets/images/food-icon-3.png';
+
 }
 
 //show markers with infowindows
@@ -179,37 +202,56 @@ function getAddress(latitude, longitude, callback){
     });
 }
 
-//test function to get textual directions  
+// test function to get textual directions  
 // function getDirections(start, end, id){
-// 	directionsDisplay = new google.maps.DirectionsRenderer;
-//     directionsService = new google.maps.DirectionsService;
+//   directionsDisplay = new google.maps.DirectionsRenderer;
+//   directionsService = new google.maps.DirectionsService;
 
-//   	directionsDisplay.setMap(map);
-// 	directionsDisplay.setPanel(document.getElementById(id));
-// 	document.getElementById(id).innerHTML = "";
-// 	directionsDisplay.setOptions( { suppressMarkers: true } );
+//   directionsDisplay.setMap(map);
+//   directionsDisplay.setPanel(document.getElementById(id));
 
-//     directionsService.route({
-//           origin: start,
-//           destination: end,
-//           travelMode: 'WALKING'
-//         }, function(response, status) {
-//           if (status === 'OK') {
-//   			directionsDisplay.set('directions', null);
-//             directionsDisplay.setDirections(response);
+//   document.getElementById(id).innerHTML = "";
+//   directionsDisplay.setOptions( { suppressMarkers: true } );
 
-//           } else {
-//             console.log('Directions request failed due to ' + status);
-//           }
-//     });
+//   directionsService.route({
+//     origin: start,
+//     destination: end,
+//     travelMode: 'WALKING'
+//   }, function(response, status) {
+//     if (status === 'OK') {
+
+//       console.log('directions', response);
+//       directionsDisplay.set('directions', null);
+//       directionsDisplay.setDirections(response);
+
+//     } else {
+//       console.log('Directions request failed due to ' + status);
+//     }
+//   });
 // }
 
-// function getYelpResults(){
+// //this function is being used to test directions in yelp results display
+// function getYelpSearchResults(){
 
-// 	let userLocation = localStorage.getItem("input-address");
-// 	const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + 
-// 	"&limit=20&radius=1610&term=food&open_now=true";
-// 	const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
+//   let input_location = localStorage.getItem("input-address"); 
+    
+//   let queryURL = "https://api.yelp.com/v3/businesses/search?location=" + input_location + "&limit=20&radius=1610&open_now=true";
+//   const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
+
+//   //adding input category to URL to select cuisine from dropdown
+//   if(localStorage.getItem("input-category")){
+//     input_category = localStorage.getItem('input-category');
+
+//     if(input_category == "All"){
+//       input_category = "food,restaurant";
+//     }
+//   }
+
+//   // console.log("inputCategory", inputCategory);
+
+//   queryURL += "&term=" + input_category;  
+//   console.log("qyeryURL =", queryURL);
+
 
 // 	$('#content-results').empty();
 	
@@ -222,33 +264,39 @@ function getAddress(latitude, longitude, callback){
 // 		const results = response.businesses;
 // 		displayMarkers(results); 
 
-// 		for (let i = 0; i < numOfResults; i++) {
-// 			let newDiv = $('<div class="div-result">');
-// 			newDiv.css("border-bottom", "2px solid #fff")
-// 			let content = "<h5>" + results[i].name + "</h5>" +
-// 			"<span> Distance : " + (results[i].distance * 0.0006213).toFixed(2) + " Miles</span>" ;
-// 			newDiv.append(content);
+// 		for (let i = 0; i < numOfResults && i < results.length; i++) {
 
-// 			let newLink = $("<a>").attr(
-// 				{
-// 					"href" : "#collapse-link-" + i,
-// 					"data-toggle" : 'collapse',
-// 					"data-lat" : results[i].coordinates.latitude,
-// 					"data-long" : results[i].coordinates.longitude,
-// 					"class" : 'direction'
-// 				});
+//       if(results && results != null && results != undefined){
 
-// 			newLink.text('Get Directions');
+//   			let newDiv = $('<div class="div-result">');
+//   			newDiv.css("border-bottom", "2px solid #fff");
+//         newDiv.css("padding", "10px")
+//   			let content = "<h5>" + results[i].name + "</h5>" +
+//   			"<span> Distance : " + (results[i].distance * 0.0006213).toFixed(2) + " Miles</span>" ;
+//   			newDiv.append(content);
 
-// 			newDiv.append(newLink);
+//   			let newLink = $("<a>").attr(
+//   				{
+//   					"href" : "#collapse-link-" + i,
+//   					"data-toggle" : 'collapse',
+//   					"data-lat" : results[i].coordinates.latitude,
+//   					"data-long" : results[i].coordinates.longitude,
+//   					"class" : 'direction'
+//   				});
 
-// 			let collapseDiv = $("<div>");
-// 			collapseDiv.attr('id', 'collapse-link-' + i);
-// 			collapseDiv.attr('class', 'collapse');
-// 			collapseDiv.attr('class', 'directionsDiv');
-// 			newDiv.append(collapseDiv);
-			
-// 			$('#content-results').append(newDiv);
+//   			newLink.text('Get Directions');
+//   			newDiv.append(newLink);
+
+//   			let collapseDiv = $("<div>");
+//   			collapseDiv.attr('id', 'collapse-link-' + i);
+//   			collapseDiv.attr('class', 'collapse');
+//   			collapseDiv.attr('class', 'directionsDiv');
+//   			newDiv.append(collapseDiv);
+  			
+//   			$('#content-results').append(newDiv);
+//       }else{
+//         console.log("no results found");
+//       }
 // 		}
 // 	}).catch(error => {
 // 		console.error(error);
