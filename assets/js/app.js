@@ -23,6 +23,14 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#back2Top").click(function(event) {
+		event.preventDefault();
+		localStorage.clear();
+		$("html, body").animate({ 
+			scrollTop: 0 }, "slow");
+		return false;
+	});
+
 	$("#page-btn").on('click', function(event){
 		event.preventDefault();
 
