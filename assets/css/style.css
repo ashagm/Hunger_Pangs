@@ -78,6 +78,10 @@ body{
     color: #fff;
 }
 
+#content-results{
+    overflow-y: scroll;
+}
+
 #map {
     height: 100%;
     width: 100%;
