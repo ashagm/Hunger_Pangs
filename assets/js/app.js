@@ -46,7 +46,7 @@ $(document).ready(function(){
 		let origin = localStorage.getItem("input-address");
 				
 		getAddress(latitude, longitude, function(destination){
-			// getDirections(origin, destination, directionsId);
+			getDirections(origin, destination, directionsId);
 		});
 
 	});
@@ -57,6 +57,14 @@ $(document).ready(function(){
 		numOfResults = $(this).text();
 		drawInitMap(); 
 		getYelpResults();
-	})
+	});
+
+	$("#food-menu .dropdown-item").on('click', function(event){
+		event.preventDefault();
+		$("#selected-food").text($(this).text()); 
+		localStorage.setItem("input-category", $(this).text());
+		drawInitMap(); 
+		getYelpResults();
+	});
 	
 });

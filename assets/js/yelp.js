@@ -3,11 +3,29 @@
 	// Integrate with Google maps using latitude/longitude inputs
 	// ONLY places to eat, limit results to 10, within 1 mile of userLocation
 
+
+let input_category = 'food,restaurant';
+
 function getYelpResults(){
 
-	let userLocation = localStorage.getItem("input-address");
-	const queryURL = "https://api.yelp.com/v3/businesses/search?location=" + userLocation + "&limit=20&radius=1610&term=food&open_now=true";
+	let input_location = localStorage.getItem("input-address"); 
+		
+	let queryURL = "https://api.yelp.com/v3/businesses/search?location=" + input_location + "&limit=20&radius=1610&open_now=true";
 	const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
+
+	//adding input category to URL to select cuisine from dropdown
+	if(localStorage.getItem("input-category")){
+		input_category = localStorage.getItem('input-category');
+
+		if(input_category == "All"){
+			input_category = "food,restaurant";
+		}
+	}
+
+	// console.log("inputCategory", inputCategory);
+
+	queryURL += "&term=" + input_category;	
+	console.log("qyeryURL =", queryURL);
 
 	$('#content-results').empty();
 	
