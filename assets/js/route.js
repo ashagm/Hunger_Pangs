@@ -1,34 +1,34 @@
 // //Route Display 
 
-function calcRoute() {
-		start = directionsLatLng
-		end = "161 Newkirk Street, Jersey City, NJ 07306"
-	let request = {
-		origin: start,
-		destination: end,
-		travelmode: google.maps.travelmode.TRANSIT
-	};
+// function calcRoute() {
+// 		start = directionsLatLng
+// 		end = "161 Newkirk Street, Jersey City, NJ 07306"
+// 	let request = {
+// 		origin: start,
+// 		destination: end,
+// 		travelmode: google.maps.travelmode.TRANSIT
+// 	};
 
 
-function getDirectionsLocation() {
-	//console.log("getDirectionsLocation");
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showDirectionsPosition);
-	} else {
-		z.innerHTML = "Geolocation is not supported by this browser.";
+// function getDirectionsLocation() {
+// 	//console.log("getDirectionsLocation");
+// 	if (navigator.geolocation) {
+// 		navigator.geolocation.getCurrentPosition(showDirectionsPosition);
+// 	} else {
+// 		z.innerHTML = "Geolocation is not supported by this browser.";
 
-	}
-}
-	directionsService.route(request, function(result, status){
-		if(status == google.maps.DirectionsStatus.OK) {
-			directionsDisplay.setDirections(result);
-		}
-		});
-}
-$("#.btn-direction").on("click", function(event) {
-	pDistance();
+// 	}
+// }
+// 	directionsService.route(request, function(result, status){
+// 		if(status == google.maps.DirectionsStatus.OK) {
+// 			directionsDisplay.setDirections(result);
+// 		}
+// 		});
+// }
+// $("#.btn-direction").on("click", function(event) {
+// 	pDistance();
 
-})
+// })
 
 // let directionsDisplay;
 // let directionsService = new google.maps.DirectionsService();
