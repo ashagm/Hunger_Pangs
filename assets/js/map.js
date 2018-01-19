@@ -187,7 +187,7 @@ function getLatLong(address, callback){
 }
 
 //function to convert an address to latitude and longitude
-function getAddress(latitude, longitude, callback){
+function getAddressTxt(latitude, longitude, callback){
 
 	var latlng = new google.maps.LatLng(latitude, longitude);
     var geocoder = new google.maps.Geocoder();
@@ -203,105 +203,33 @@ function getAddress(latitude, longitude, callback){
 }
 
 // test function to get textual directions  
-// function getDirections(start, end, id){
-//   directionsDisplay = new google.maps.DirectionsRenderer;
-//   directionsService = new google.maps.DirectionsService;
+function getDirections(start, end, id){
+  directionsDisplay = new google.maps.DirectionsRenderer;
+  directionsService = new google.maps.DirectionsService;
 
-//   directionsDisplay.setMap(map);
-//   directionsDisplay.setPanel(document.getElementById(id));
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById(id));
 
-//   document.getElementById(id).innerHTML = "";
-//   directionsDisplay.setOptions( { suppressMarkers: true } );
+  document.getElementById(id).innerHTML = "";
+  directionsDisplay.setOptions( { suppressMarkers: true } );
 
-//   directionsService.route({
-//     origin: start,
-//     destination: end,
-//     travelMode: 'WALKING'
-//   }, function(response, status) {
-//     if (status === 'OK') {
+  directionsService.route({
+    origin: start,
+    destination: end,
+    travelMode: 'WALKING'
+  }, function(response, status) {
+    if (status === 'OK') {
 
-//       console.log('directions', response);
-//       directionsDisplay.set('directions', null);
-//       directionsDisplay.setDirections(response);
+      console.log('directions', response);
+      directionsDisplay.set('directions', null);
+      directionsDisplay.setDirections(response);
 
-//     } else {
-//       console.log('Directions request failed due to ' + status);
-//     }
-//   });
-// }
-
-// //this function is being used to test directions in yelp results display
-// function getYelpSearchResults(){
-
-//   let input_location = localStorage.getItem("input-address"); 
-    
-//   let queryURL = "https://api.yelp.com/v3/businesses/search?location=" + input_location + "&limit=20&radius=1610&open_now=true";
-//   const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
-
-//   //adding input category to URL to select cuisine from dropdown
-//   if(localStorage.getItem("input-category")){
-//     input_category = localStorage.getItem('input-category');
-
-//     if(input_category == "All"){
-//       input_category = "food,restaurant";
-//     }
-//   }
-
-//   // console.log("inputCategory", inputCategory);
-
-//   queryURL += "&term=" + input_category;  
-//   console.log("qyeryURL =", queryURL);
+    } else {
+      console.log('Directions request failed due to ' + status);
+    }
+  });
+}
 
 
-// 	$('#content-results').empty();
-	
-// 	$.ajax({
-// 		url: proxyUrl + queryURL,
-// 		headers: {
-// 			authorization: 'Bearer ' + yelpAPI
-// 		}
-// 	}).done(response => {		
-// 		const results = response.businesses;
-// 		displayMarkers(results); 
-
-// 		for (let i = 0; i < numOfResults && i < results.length; i++) {
-
-//       if(results && results != null && results != undefined){
-
-//   			let newDiv = $('<div class="div-result">');
-//   			newDiv.css("border-bottom", "2px solid #fff");
-//         newDiv.css("padding", "10px")
-//   			let content = "<h5>" + results[i].name + "</h5>" +
-//   			"<span> Distance : " + (results[i].distance * 0.0006213).toFixed(2) + " Miles</span>" ;
-//   			newDiv.append(content);
-
-//   			let newLink = $("<a>").attr(
-//   				{
-//   					"href" : "#collapse-link-" + i,
-//   					"data-toggle" : 'collapse',
-//   					"data-lat" : results[i].coordinates.latitude,
-//   					"data-long" : results[i].coordinates.longitude,
-//   					"class" : 'direction'
-//   				});
-
-//   			newLink.text('Get Directions');
-//   			newDiv.append(newLink);
-
-//   			let collapseDiv = $("<div>");
-//   			collapseDiv.attr('id', 'collapse-link-' + i);
-//   			collapseDiv.attr('class', 'collapse');
-//   			collapseDiv.attr('class', 'directionsDiv');
-//   			newDiv.append(collapseDiv);
-  			
-//   			$('#content-results').append(newDiv);
-//       }else{
-//         console.log("no results found");
-//       }
-// 		}
-// 	}).catch(error => {
-// 		console.error(error);
-// 	});
-
-// }
 
 
