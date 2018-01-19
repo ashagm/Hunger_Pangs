@@ -15,7 +15,7 @@ body{
 #results-page{
     min-height: 100vh;
     min-width: 100vw;
-    background-image: url(" ../images/bg-2.jpg");
+    background-image: url(" ../images/bg-4.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -98,6 +98,30 @@ body{
 
 .directionsDiv{
     background-color: #fff;
+}
+
+/*.td-results{
+    text-align: center;
+    border: 1px solid #fff;
+}*/
+
+.td-results-l{
+    text-align: left;
+}
+
+.td-results-r{
+    text-align: right;
+}
+#results-name{    
+    font-size: 22px;
+}
+
+#results-distance{
+    font-size : 14px;
+}
+
+a:link {
+    color: red
 }
 
 #selected-value,

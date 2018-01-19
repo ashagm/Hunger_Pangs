@@ -18,8 +18,8 @@ $(document).ready(function(){
 			$('#page-input').val(localStorage.getItem("input-address"));
 
 			drawInitMap(); //todo - not doing here keeps the map blank
-			getYelpResults();
-			// getYelpSearchResults();
+			// getYelpResults();
+			getYelpSearchResults();
 		}
 	});
 
@@ -41,8 +41,8 @@ $(document).ready(function(){
       		localStorage.setItem("input-address", $('#page-input').val());
 
 			drawInitMap(); 
-			getYelpResults();
-			// getYelpSearchResults();
+			// getYelpResults();
+			getYelpSearchResults();
 		}
 
 	});
@@ -55,7 +55,7 @@ $(document).ready(function(){
 
 		let origin = localStorage.getItem("input-address");
 				
-		getAddress(latitude, longitude, function(destination){
+		getAddressTxt(latitude, longitude, function(destination){
 			getDirections(origin, destination, directionsId);
 		});
 
@@ -66,8 +66,8 @@ $(document).ready(function(){
 		$("#selected-value").text($(this).text()); 
 		numOfResults = $(this).text();
 		drawInitMap(); 
-		getYelpResults();
-		// getYelpSearchResults();
+		// getYelpResults();
+		getYelpSearchResults();
 	});
 
 	$("#food-menu .dropdown-item").on('click', function(event){
@@ -75,8 +75,8 @@ $(document).ready(function(){
 		$("#selected-food").text($(this).text()); 
 		localStorage.setItem("input-category", $(this).text());
 		drawInitMap(); 
-		getYelpResults();
-		// getYelpSearchResults();
+		// getYelpResults();
+		getYelpSearchResults();
 	});
 	
 });
