@@ -64,8 +64,8 @@ function drawInitMap(){
 					 }, 
 					"YOU ARE HERE! @ " + inputAddress, 
 					12, 
-					'assets/images/home-icon-2.png',
-					60, 
+					'assets/images/home-icon-3.png',
+					50, 
 					google.maps.Animation.BOUNCE);
 
 		});
@@ -111,7 +111,6 @@ function getMarkerIcon(){
   }
   
   return 'assets/images/food-icon-3.png';
-
 }
 
 //show markers with infowindows
