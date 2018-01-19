@@ -65,7 +65,7 @@ function drawInitMap(){
 					"YOU ARE HERE! @ " + inputAddress, 
 					12, 
 					'assets/images/home-icon-2.png',
-					90, 
+					60, 
 					google.maps.Animation.BOUNCE);
 
 		});
@@ -93,7 +93,7 @@ function displayMarkers(yelpResponse){
   			infoText, 
   			22, 
   			markerImage, 
-  			80,
+  			50,
   			google.maps.Animation.DROP);
     }else{
       console.log("End of results");
