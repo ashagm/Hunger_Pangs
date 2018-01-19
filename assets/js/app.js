@@ -17,8 +17,7 @@ $(document).ready(function(){
 			
 			$('#page-input').val(localStorage.getItem("input-address"));
 
-			drawInitMap(); //todo - not doing here keeps the map blank
-			// getYelpResults();
+			drawInitMap(); 
 			getYelpSearchResults();
 		}
 	});
@@ -41,7 +40,6 @@ $(document).ready(function(){
       		localStorage.setItem("input-address", $('#page-input').val());
 
 			drawInitMap(); 
-			// getYelpResults();
 			getYelpSearchResults();
 		}
 
@@ -66,7 +64,6 @@ $(document).ready(function(){
 		$("#selected-value").text($(this).text()); 
 		numOfResults = $(this).text();
 		drawInitMap(); 
-		// getYelpResults();
 		getYelpSearchResults();
 	});
 
@@ -75,7 +72,6 @@ $(document).ready(function(){
 		$("#selected-food").text($(this).text()); 
 		localStorage.setItem("input-category", $(this).text());
 		drawInitMap(); 
-		// getYelpResults();
 		getYelpSearchResults();
 	});
 	
