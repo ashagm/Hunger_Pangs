@@ -204,6 +204,13 @@ function getAddressTxt(latitude, longitude, callback){
 
 // test function to get textual directions  
 function getDirections(start, end, id){
+
+  // Clear past routes
+  if (directionsDisplay != null) {
+      directionsDisplay.setMap(null);
+      directionsDisplay = null;
+  }
+
   directionsDisplay = new google.maps.DirectionsRenderer;
   directionsService = new google.maps.DirectionsService;
 
