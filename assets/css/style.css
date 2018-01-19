@@ -100,17 +100,14 @@ body{
     background-color: #fff;
 }
 
-/*.td-results{
-    text-align: center;
-    border: 1px solid #fff;
-}*/
-
 .td-results-l{
     text-align: left;
+    width: 75%;
 }
 
 .td-results-r{
     text-align: right;
+    width: 25%;
 }
 #results-name{    
     font-size: 22px;
