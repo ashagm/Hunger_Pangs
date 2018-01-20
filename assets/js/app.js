@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	$("#results-page").hide();
 
+	let favorites = [];	
 	$("#add-btn").on('click', function (event) {
 		event.preventDefault();
 		$("#results-page").show(); 
@@ -19,6 +20,29 @@ $(document).ready(function(){
 
 			drawInitMap(); 
 			getYelpSearchResults();
+		}
+	});
+
+	$("#user-input").keypress(function(event) {
+		if(event.which == 13) {
+			event.preventDefault();
+			$("#results-page").show(); 
+		
+			if($('#user-input').val() === ''){
+				return false;
+			} else {
+				localStorage.clear();
+      			localStorage.setItem("input-address", $('#user-input').val());
+
+			$('html,body').animate({
+				scrollTop: $("#results-page").offset().top},
+				'slow');
+			
+			$('#page-input').val(localStorage.getItem("input-address"));
+
+			drawInitMap(); 
+			getYelpSearchResults();
+		}
 		}
 	});
 
@@ -45,11 +69,29 @@ $(document).ready(function(){
 
 	});
 
+	$("#page-input").keypress(function(event) {
+		if(event.which == 13) {
+			event.preventDefault();
+
+			if($('#page-input').val() === ''){
+				return false;
+			} else {
+				localStorage.clear();
+      			localStorage.setItem("input-address", $('#page-input').val());
+
+				drawInitMap(); 
+				getYelpSearchResults();
+			}
+
+		};
+	});
+
 	$("#content-results").on('click', '.direction', function(){
 		let latitude = $(this).attr('data-lat');
 		let longitude = $(this).attr('data-long');
 
-		let directionsId = $(this).siblings('div').attr('id');
+		// let directionsId = $(this).siblings('div').attr('id');
+		let directionsId = $(this).parent().parent().parent().siblings('div').attr('id');
 
 		let origin = localStorage.getItem("input-address");
 				
@@ -59,6 +101,23 @@ $(document).ready(function(){
 
 	});
 
+	$("#content-results").on('click', '.results-bookmark', function(){
+		$(this).css('color', "red");
+		favorites.push("<a href='" + $(this).data('url') + "'>" + $(this).data('name') + "</a>")
+		localStorage.setItem('bookmarks', JSON.stringify(favorites));
+
+		let bmArr = JSON.parse(localStorage.getItem('bookmarks'));
+
+		let modalContent = "";
+		for(let i = 0; i < bmArr.length; i++){
+			modalContent += "<p>" + bmArr[i] + "</p>";
+			modalContent += "<hr>";
+		}
+
+		$('#bookmarks-body').html(modalContent);
+	});
+	
+
 	$("#number-menu .dropdown-item").on('click', function(event){
 		event.preventDefault();
 		$("#selected-value").text($(this).text()); 
@@ -66,6 +125,7 @@ $(document).ready(function(){
 		drawInitMap(); 
 		getYelpSearchResults();
 	});
+
 
 	$("#food-menu .dropdown-item").on('click', function(event){
 		event.preventDefault();
