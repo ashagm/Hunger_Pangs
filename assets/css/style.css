@@ -116,7 +116,7 @@ body{
     width: 75%;
 }
 
-.td-results-r{
+.td-results-ri{
     text-align: right;
     width: 25%;
 }
@@ -145,6 +145,13 @@ a:link {
 
 .img-bookmark{
     width: 50px;
+}
+
+.td-results-r{
+    display: block;
+    width: 20px;
+    height: 10px;
+    background: url('../images/star.png') no-repeat;
 }
 
 #food-menu,
