@@ -104,16 +104,22 @@ function getYelpSearchResults(){
 		newDiv.css("border-bottom", "2px solid #fff");
         newDiv.css("padding", "10px");
 
+        const ratingNum = parseInt(results[i].rating)
+        console.log(ratingNum);
+        console.log(results[i]);
+
 		let content = 
         "<table width='100%'><tr><td class='td-results-l' id='results-name'>" 
         + results[i].name +
 		"</td><td class='td-results-r' id='results-distance'>" 
         + (results[i].distance * 0.0006213).toFixed(2) + " Miles</td></tr>" +
         "<tr><td class='td-results-l'>Tel: " 
-        + results[i].display_phone + "</td><td class='td-results-r'> Rating: " 
-        + results[i].rating + "</td></tr>" ;
+        + results[i].display_phone + "</td><td class='td-results-rating' id='"+results[i].id+"-rating'> Rating: " 
+        "</td></tr>" ;
 
 		newDiv.append(content);
+
+        console.log('done-appending');
 
 		let newLink = $("<a>").attr(
 			{
@@ -134,6 +140,9 @@ function getYelpSearchResults(){
 		newDiv.append(collapseDiv);
 		
 		$('#content-results').append(newDiv);
+		for(let j=0; j < ratingNum; j++) {
+        	$("#"+results[i].id+"-rating").append($('<span>').text('⭐️'));
+        }
 
       }else{
         console.log("no results found");

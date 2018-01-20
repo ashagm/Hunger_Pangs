@@ -82,6 +82,13 @@ body{
     overflow-y: scroll;
 }
 
+.td-results-r{
+    display: block;
+    width: 20px;
+    height: 10px;
+    background: url('../images/star.png') no-repeat;
+}
+
 #map {
     height: 100%;
     width: 100%;
