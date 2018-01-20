@@ -22,6 +22,29 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#user-input").keypress(function(event) {
+		if(event.which == 13) {
+			event.preventDefault();
+			$("#results-page").show(); 
+		
+			if($('#user-input').val() === ''){
+				return false;
+			} else {
+				localStorage.clear();
+      			localStorage.setItem("input-address", $('#user-input').val());
+
+			$('html,body').animate({
+				scrollTop: $("#results-page").offset().top},
+				'slow');
+			
+			$('#page-input').val(localStorage.getItem("input-address"));
+
+			drawInitMap(); 
+			getYelpSearchResults();
+		}
+		}
+	})
+
 	$("#back2Top").click(function(event) {
 		event.preventDefault();
 		localStorage.clear();
@@ -43,6 +66,23 @@ $(document).ready(function(){
 			getYelpSearchResults();
 		}
 
+	});
+
+	$("#page-input").keypress(function(event) {
+		if(event.which == 13) {
+			event.preventDefault();
+
+			if($('#page-input').val() === ''){
+				return false;
+			} else {
+				localStorage.clear();
+      			localStorage.setItem("input-address", $('#page-input').val());
+
+				drawInitMap(); 
+				getYelpSearchResults();
+			}
+
+		};
 	});
 
 	$("#content-results").on('click', '.direction', function(){
