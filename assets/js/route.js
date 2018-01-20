@@ -1,105 +1,105 @@
-let input_category = 'food,restaurant';
+// let input_category = 'food,restaurant';
 
-function getYelpSearchResults(){
+// function getYelpSearchResults(){
 
-  let input_location = localStorage.getItem("input-address"); 
+//   let input_location = localStorage.getItem("input-address"); 
     
-  let queryURL = "https://api.yelp.com/v3/businesses/search?location=" + input_location + "&limit=20&radius=1610&open_now=true";
-  const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
+//   let queryURL = "https://api.yelp.com/v3/businesses/search?location=" + input_location + "&limit=20&radius=1610&open_now=true";
+//   const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
 
-  //adding input category to URL to select cuisine from dropdown
-  if(localStorage.getItem("input-category")){
-    input_category = localStorage.getItem('input-category');
+//   //adding input category to URL to select cuisine from dropdown
+//   if(localStorage.getItem("input-category")){
+//     input_category = localStorage.getItem('input-category');
 
-    if(input_category == "All"){
-      input_category = "food,restaurant";
-    }
-  }
+//     if(input_category == "All"){
+//       input_category = "food,restaurant";
+//     }
+//   }
 
-  // console.log("inputCategory", inputCategory);
-  queryURL += "&term=" + input_category;  
-  console.log("qyeryURL =", queryURL);
+//   // console.log("inputCategory", inputCategory);
+//   queryURL += "&term=" + input_category;  
+//   console.log("qyeryURL =", queryURL);
 
-	$('#content-results').empty();
+// 	$('#content-results').empty();
 	
-	$.ajax({
-		url: proxyUrl + queryURL,
-		headers: {
-			authorization: 'Bearer ' + yelpAPI
-		}
-	}).done(response => {		
-		const results = response.businesses;
-		displayMarkers(results); 
+// 	$.ajax({
+// 		url: proxyUrl + queryURL,
+// 		headers: {
+// 			authorization: 'Bearer ' + yelpAPI
+// 		}
+// 	}).done(response => {		
+// 		const results = response.businesses;
+// 		displayMarkers(results); 
 
-		for (let i = 0; i < numOfResults && i < results.length; i++) {
+// 		for (let i = 0; i < numOfResults && i < results.length; i++) {
 
-			let newTable = createTable(i, results[i]);
-			// console.log(newTable);
+// 			let newTable = createTable(i, results[i]);
+// 			// console.log(newTable);
 
-			if(results && results != null && results != undefined){
+// 			if(results && results != null && results != undefined){
 
-				let newDiv = $('<div class="div-result">');
-				newDiv.css("border-bottom", "2px solid #fff");
-				newDiv.css("padding", "10px");
+// 				let newDiv = $('<div class="div-result">');
+// 				newDiv.css("border-bottom", "2px solid #fff");
+// 				newDiv.css("padding", "10px");
 
-				newDiv.append(newTable);
+// 				newDiv.append(newTable);
 
-				let collapseDiv = $("<div>");
-				collapseDiv.attr('id', 'collapse-link-' + i);
-				collapseDiv.attr('class', 'collapse');
-				collapseDiv.attr('class', 'directionsDiv');
-				newDiv.append(collapseDiv);
+// 				let collapseDiv = $("<div>");
+// 				collapseDiv.attr('id', 'collapse-link-' + i);
+// 				collapseDiv.attr('class', 'collapse');
+// 				collapseDiv.attr('class', 'directionsDiv');
+// 				newDiv.append(collapseDiv);
 
-			$('#content-results').append(newDiv);
+// 			$('#content-results').append(newDiv);
 
-			}else{
-				console.log("no results found");
-			}
-		}
-	}).catch(error => {
-		console.error(error);
-	});
+// 			}else{
+// 				console.log("no results found");
+// 			}
+// 		}
+// 	}).catch(error => {
+// 		console.error(error);
+// 	});
 
-}
+// }
 
-function createTable(i, results){
+// function createTable(i, results){
 
-	const ratingNum = parseInt(results.rating)
-	console.log(ratingNum);
+// 	const ratingNum = parseInt(results.rating)
+// 	console.log(ratingNum);
 	
-    let newTable = $('<table width="100%"">');
-    let newTr1 = $('<tr>');
-    newTr1.append("<td class='td-results-l' id='results-name'>" + results.name + '</td>');
-    newTr1.append("<td class='td-results-ri' id='results-distance'>" + (results.distance * 0.0006213).toFixed(2) + ' Miles</td>');
-    newTable.append(newTr1);
+//     let newTable = $('<table width="100%"">');
+//     let newTr1 = $('<tr>');
+//     newTr1.append("<td class='td-results-l' id='results-name'>" + results.name + '</td>');
+//     newTr1.append("<td class='td-results-ri' id='results-distance'>" + (results.distance * 0.0006213).toFixed(2) + ' Miles</td>');
+//     newTable.append(newTr1);
 
- 	let newTr2 = $('<tr>');
-    newTr2.append("<td class='td-results-l'>" + results.display_phone + '</td>');
-    newTr2.append("<td class='td-results-ri td-results-rating' id='" + results.id+"-rating'>" + results.rating + '</td>');
-    newTable.append(newTr2);
+//  	let newTr2 = $('<tr>');
+//     newTr2.append("<td class='td-results-l'>" + results.display_phone + '</td>');
+//     newTr2.append("<td class='td-results-ri td-results-rating' id='" + results.id+"-rating'>" + results.rating + '</td>');
+//     newTable.append(newTr2);
 
-	for(let j = 0; j < ratingNum; j++) {
-    	$("#"+results.id+"-rating").append($('<span>').text('⭐️'));
-    }
+// 	for(let j = 0; j < ratingNum; j++) {
+//     	$("#"+results.id+"-rating").append($('<span>').text('⭐️'));
+//     }
 
- 	let newTr3 = $('<tr>');
- 	let newTd1 = $("<td class='td-results-l' id='results-directions'>");
- 	let newLink = $("<a>").attr(
-			{
-				"href" : "#collapse-link-" + i,
-				"data-toggle" : 'collapse',
-				"data-lat" : results.coordinates.latitude,
-				"data-long" : results.coordinates.longitude,
-				"class" : 'direction'
-			});
+//  	let newTr3 = $('<tr>');
+//  	let newTd1 = $("<td class='td-results-l' id='results-directions'>");
+//  	let newLink = $("<a>").attr(
+// 			{
+// 				"href" : "#collapse-link-" + i,
+// 				"data-toggle" : 'collapse',
+// 				"data-lat" : results.coordinates.latitude,
+// 				"data-long" : results.coordinates.longitude,
+// 				"class" : 'direction'
+// 			});
 
-	newLink.text('Get Directions');
+// 	newLink.text('Get Directions');
 
-	newTd1.append(newLink);
-    newTr3.append(newTd1);
-    newTr3.append("<td class='td-results-ri results-bookmark' id='results-bookmark-" + i + "'" + "data-name='" + results.name + "'" + "data-url='" + results.url + "'>" + "<i class='fa fa-bookmark-o fa-1x' aria-hidden='true'></i>" + '</td>');
-    newTable.append(newTr3);
+// 	newTd1.append(newLink);
+//     newTr3.append(newTd1);
+//     newTr3.append("<td class='td-results-ri results-bookmark' id='results-bookmark-" + i + "'" + "data-name='" + results.name + "'" + "data-url='" + results.url + "'>" + "<i class='fa fa-bookmark-o fa-1x' aria-hidden='true'></i>" + '</td>');
+//     newTable.append(newTr3);
 
-    return newTable;
-}
+//     return newTable;
+// }
 
