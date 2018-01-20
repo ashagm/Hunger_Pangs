@@ -30,7 +30,7 @@
 
 	<div class="container" id="results-page">
 		<div class ="row" id="results-top">
-			<div class="col-md-12">
+			<div class="col-md-11">
 				<input type="text" name="address" id="page-input" placeholder="Enter location" required >
 				<button class="btn btn-info" id="page-btn" type="submit" value="submit">Still Hungry</button>
 				<div class="btn-group">
@@ -59,6 +59,12 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="col-md-1">	
+				<button type="button"  data-toggle="modal"  data-target="#bookmark-modal" class="btn btn-bookmark">
+				<i class="fa fa-bookmark fa-2x" aria-hidden="true" style='color: red'></i>
+				</button>
+			</div>
 		</div>
 		<div class="row" id="results-bottom">
 			<div class="col col-md-7" id="content-map">	
@@ -75,6 +81,20 @@
 			<div class="col-md-1" id="back2Top"><i class="fa fa-home fa-2x" aria-hidden="true"></i></div>
 		</div>
 	</div>
+
+	<div class="modal" id="bookmark-modal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header" id="bookmark-header">
+	        <h4 class="modal-title">Your BookMarks</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" id="bookmarks-body">
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 	 <!-- jQuery first, then Tether, then Bootstrap JS. -->

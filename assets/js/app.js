@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	$("#results-page").hide();
 
+	let favorites = [];	
 	$("#add-btn").on('click', function (event) {
 		event.preventDefault();
 		$("#results-page").show(); 
@@ -43,7 +44,7 @@ $(document).ready(function(){
 			getYelpSearchResults();
 		}
 		}
-	})
+	});
 
 	$("#back2Top").click(function(event) {
 		event.preventDefault();
@@ -89,7 +90,8 @@ $(document).ready(function(){
 		let latitude = $(this).attr('data-lat');
 		let longitude = $(this).attr('data-long');
 
-		let directionsId = $(this).siblings('div').attr('id');
+		// let directionsId = $(this).siblings('div').attr('id');
+		let directionsId = $(this).parent().parent().parent().siblings('div').attr('id');
 
 		let origin = localStorage.getItem("input-address");
 				
@@ -99,6 +101,23 @@ $(document).ready(function(){
 
 	});
 
+	$("#content-results").on('click', '.results-bookmark', function(){
+		$(this).css('color', "red");
+		favorites.push("<a href='" + $(this).data('url') + "'>" + $(this).data('name') + "</a>")
+		localStorage.setItem('bookmarks', JSON.stringify(favorites));
+
+		let bmArr = JSON.parse(localStorage.getItem('bookmarks'));
+
+		let modalContent = "";
+		for(let i = 0; i < bmArr.length; i++){
+			modalContent += "<p>" + bmArr[i] + "</p>";
+			modalContent += "<hr>";
+		}
+
+		$('#bookmarks-body').html(modalContent);
+	});
+	
+
 	$("#number-menu .dropdown-item").on('click', function(event){
 		event.preventDefault();
 		$("#selected-value").text($(this).text()); 
@@ -106,6 +125,7 @@ $(document).ready(function(){
 		drawInitMap(); 
 		getYelpSearchResults();
 	});
+
 
 	$("#food-menu .dropdown-item").on('click', function(event){
 		event.preventDefault();
