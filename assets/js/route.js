@@ -1,58 +1,105 @@
-// //Route Display 
+let input_category = 'food,restaurant';
 
-// function calcRoute() {
-// 		start = directionsLatLng
-// 		end = "161 Newkirk Street, Jersey City, NJ 07306"
-// 	let request = {
-// 		origin: start,
-// 		destination: end,
-// 		travelmode: google.maps.travelmode.TRANSIT
-// 	};
+function getYelpSearchResults(){
 
+  let input_location = localStorage.getItem("input-address"); 
+    
+  let queryURL = "https://api.yelp.com/v3/businesses/search?location=" + input_location + "&limit=20&radius=1610&open_now=true";
+  const proxyUrl = 'https://shielded-hamlet-43668.herokuapp.com/';
 
-// function getDirectionsLocation() {
-// 	//console.log("getDirectionsLocation");
-// 	if (navigator.geolocation) {
-// 		navigator.geolocation.getCurrentPosition(showDirectionsPosition);
-// 	} else {
-// 		z.innerHTML = "Geolocation is not supported by this browser.";
+  //adding input category to URL to select cuisine from dropdown
+  if(localStorage.getItem("input-category")){
+    input_category = localStorage.getItem('input-category');
 
-// 	}
-// }
-// 	directionsService.route(request, function(result, status){
-// 		if(status == google.maps.DirectionsStatus.OK) {
-// 			directionsDisplay.setDirections(result);
-// 		}
-// 		});
-// }
-// $("#.btn-direction").on("click", function(event) {
-// 	pDistance();
+    if(input_category == "All"){
+      input_category = "food,restaurant";
+    }
+  }
 
-// })
+  // console.log("inputCategory", inputCategory);
+  queryURL += "&term=" + input_category;  
+  console.log("qyeryURL =", queryURL);
 
-// let directionsDisplay;
-// let directionsService = new google.maps.DirectionsService();
-// let directionsMap;
-// const z = document.getElementByID("Get Directions!");
-// let start;
+	$('#content-results').empty();
+	
+	$.ajax({
+		url: proxyUrl + queryURL,
+		headers: {
+			authorization: 'Bearer ' + yelpAPI
+		}
+	}).done(response => {		
+		const results = response.businesses;
+		displayMarkers(results); 
 
+		for (let i = 0; i < numOfResults && i < results.length; i++) {
 
-// function showDirectionsPosition(position) {
-// 	console.log("showMapPosition");
-// 		directionsLatitiude = position.coords.latitude;
-// 		directionsLongitude = position.coords.longitude;
-// 		directionsLatLng = new google.maps.LatLng(directionsLatitude, directionsLongitude);
-// 	getDirections();
-// // }
-// function getAddress() {
-// 	console.log('getAddress')
-// 		directionsDisplay = new google.maps.DirectionsRenderer();
-		
-// 		let directionsOptions = {
-// 			zoom: 12,
-// 			center: start
-// 		}
-// 		directionsMap = new google.maps.Map(document.getElementById("directions-canvas"), directionsOptions);
-// 		directionsDisplay.setMap(directionsMap);
-// }
+			let newTable = createTable(i, results[i]);
+			// console.log(newTable);
+
+			if(results && results != null && results != undefined){
+
+				let newDiv = $('<div class="div-result">');
+				newDiv.css("border-bottom", "2px solid #fff");
+				newDiv.css("padding", "10px");
+
+				newDiv.append(newTable);
+
+				let collapseDiv = $("<div>");
+				collapseDiv.attr('id', 'collapse-link-' + i);
+				collapseDiv.attr('class', 'collapse');
+				collapseDiv.attr('class', 'directionsDiv');
+				newDiv.append(collapseDiv);
+
+			$('#content-results').append(newDiv);
+
+			}else{
+				console.log("no results found");
+			}
+		}
+	}).catch(error => {
+		console.error(error);
+	});
+
+}
+
+function createTable(i, results){
+
+	const ratingNum = parseInt(results.rating)
+	console.log(ratingNum);
+	
+    let newTable = $('<table width="100%"">');
+    let newTr1 = $('<tr>');
+    newTr1.append("<td class='td-results-l' id='results-name'>" + results.name + '</td>');
+    newTr1.append("<td class='td-results-ri' id='results-distance'>" + (results.distance * 0.0006213).toFixed(2) + ' Miles</td>');
+    newTable.append(newTr1);
+
+ 	let newTr2 = $('<tr>');
+    newTr2.append("<td class='td-results-l'>" + results.display_phone + '</td>');
+    newTr2.append("<td class='td-results-ri td-results-rating' id='" + results.id+"-rating'>" + results.rating + '</td>');
+    newTable.append(newTr2);
+
+	for(let j = 0; j < ratingNum; j++) {
+    	$("#"+results.id+"-rating").append($('<span>').text('⭐️'));
+    }
+
+ 	let newTr3 = $('<tr>');
+ 	let newTd1 = $("<td class='td-results-l' id='results-directions'>");
+ 	let newLink = $("<a>").attr(
+			{
+				"href" : "#collapse-link-" + i,
+				"data-toggle" : 'collapse',
+				"data-lat" : results.coordinates.latitude,
+				"data-long" : results.coordinates.longitude,
+				"class" : 'direction'
+			});
+
+	newLink.text('Get Directions');
+
+	newTd1.append(newLink);
+    newTr3.append(newTd1);
+    newTr3.append("<td class='td-results-ri results-bookmark' id='results-bookmark-" + i + "'" + "data-name='" + results.name + "'" + "data-url='" + results.url + "'>" + "<i class='fa fa-bookmark-o fa-1x' aria-hidden='true'></i>" + '</td>');
+    newTable.append(newTr3);
+
+    return newTable;
+}
 
