@@ -22,7 +22,7 @@ const markerImages = {
   'Indian': 'assets/images/food-icon-indian.png',
   'Italian' : 'assets/images/food-icon-italian-1.png',
   'Mexican' : 'assets/images/food-icon-mexican.png',
-  'Chinese' : 'assets/images/food-icon-chinese.gif',
+  'Chinese' : 'assets/images/food-icon-chinese.png',
   'Cafe' : 'assets/images/food-icon-cafe.png',  
   'All' : 'assets/images/food-icon-4.png'
 }
