@@ -16,7 +16,6 @@ function getYelpSearchResults(){
     }
   }
 
-  // console.log("inputCategory", inputCategory);
   queryURL += "&term=" + input_category;  
   console.log("qyeryURL =", queryURL);
 
@@ -41,10 +40,7 @@ function getYelpSearchResults(){
 				newDiv.css("border-bottom", "2px solid #fff");
 				newDiv.css("padding", "10px");
 
-		        const ratingNum = parseInt(results[i].rating)
-				// console.log(ratingNum);
-        		// console.log(results[i]);
-
+		        const ratingNum = parseInt(results[i].rating);
 				newDiv.append(newTable);
 
 				let collapseDiv = $("<div>");
