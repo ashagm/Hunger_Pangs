@@ -20,11 +20,11 @@ let numOfResults = 10;
 
 const markerImages = {
   'Indian': 'assets/images/food-icon-indian.png',
-  'Italian' : 'assets/images/food-icon-italian.png',
+  'Italian' : 'assets/images/food-icon-italian-1.png',
   'Mexican' : 'assets/images/food-icon-mexican.png',
   'Chinese' : 'assets/images/food-icon-chinese.gif',
   'Cafe' : 'assets/images/food-icon-cafe.png',  
-  'All' : 'assets/images/food-icon-3.png'
+  'All' : 'assets/images/food-icon-4.png'
 }
 
 //initialize the map
@@ -110,7 +110,7 @@ function getMarkerIcon(){
     return markerImages[category];
   }
   
-  return 'assets/images/food-icon-3.png';
+  return 'assets/images/food-icon-5.png';
 }
 
 //show markers with infowindows
@@ -188,17 +188,16 @@ function getLatLong(address, callback){
 //function to convert an address to latitude and longitude
 function getAddressTxt(latitude, longitude, callback){
 
-	var latlng = new google.maps.LatLng(latitude, longitude);
-    var geocoder = new google.maps.Geocoder();
+  var latlng = new google.maps.LatLng(latitude, longitude);
+  var geocoder = new google.maps.Geocoder();
 
-    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-        	callback(results[0].formatted_address);
-        }else{
-        	alert(status);
-        }
-
-    });
+  geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      callback(results[0].formatted_address);
+    }else{
+      alert(status);
+    }
+  });
 }
 
 // test function to get textual directions  
@@ -206,8 +205,8 @@ function getDirections(start, end, id){
 
   // Clear past routes
   if (directionsDisplay != null) {
-      directionsDisplay.setMap(null);
-      directionsDisplay = null;
+    directionsDisplay.setMap(null);
+    directionsDisplay = null;
   }
 
   directionsDisplay = new google.maps.DirectionsRenderer;
@@ -224,8 +223,8 @@ function getDirections(start, end, id){
     destination: end,
     travelMode: 'WALKING'
   }, function(response, status) {
+  
     if (status === 'OK') {
-
       console.log('directions', response);
       directionsDisplay.set('directions', null);
       directionsDisplay.setDirections(response);
