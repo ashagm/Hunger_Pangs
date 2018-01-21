@@ -20,6 +20,7 @@ $(document).ready(function(){
 
 			drawInitMap(); 
 			getYelpSearchResults();
+			getWeather();
 		}
 	});
 
@@ -42,6 +43,7 @@ $(document).ready(function(){
 
 			drawInitMap(); 
 			getYelpSearchResults();
+			getWeather();
 		}
 		}
 	});
@@ -65,6 +67,7 @@ $(document).ready(function(){
 
 			drawInitMap(); 
 			getYelpSearchResults();
+			getWeather();
 		}
 
 	});
@@ -81,6 +84,7 @@ $(document).ready(function(){
 
 				drawInitMap(); 
 				getYelpSearchResults();
+				getWeather();
 			}
 
 		};
