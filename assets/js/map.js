@@ -65,7 +65,7 @@ function drawInitMap(){
 					"YOU ARE HERE! @ " + inputAddress, 
 					12, 
 					'assets/images/home-icon-3.png',
-					50, 
+					40, 
 					google.maps.Animation.BOUNCE);
 
 		});
@@ -83,7 +83,8 @@ function displayMarkers(yelpResponse){
   		let latitude_business = yelpResponse[i].coordinates.latitude;
   		let longitude_business = yelpResponse[i].coordinates.longitude;
 
-  		let infoText = yelpResponse[i].name +'--' + yelpResponse[i].price;    
+      let price = yelpResponse[i].price != undefined ? yelpResponse[i].price : "";
+      let infoText = yelpResponse[i].name +'<br> Price : ' + price  + "<br> Rating : " + getRatingStars(parseInt(yelpResponse[i].rating));    
 
   		createMarker(
   			{

@@ -98,3 +98,11 @@ function createTable(i, results){
 
     return newTable;
 }
+
+function getRatingStars(ratingNum){
+	let newSpan = ""
+	for(let j=0; j < ratingNum; j++) {
+		newSpan += '⭐️' ;
+	}
+	return newSpan;
+}
