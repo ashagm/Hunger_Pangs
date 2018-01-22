@@ -49,11 +49,11 @@ function getYelpSearchResults(){
 				collapseDiv.attr('class', 'directionsDiv');
 				newDiv.append(collapseDiv);
 
-			$('#content-results').append(newDiv);
+				$('#content-results').append(newDiv);
 
-			for(let j=0; j < ratingNum; j++) {
-        		$("#"+results[i].id+"-rating").append($('<span>').text('⭐️'));
-        	}
+				for(let j=0; j < ratingNum; j++) {
+        			$("#"+results[i].id+"-rating").append($('<span>').text('⭐️'));
+        		}
 
 			}else{
 				console.log("no results found");
