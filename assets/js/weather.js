@@ -1,7 +1,7 @@
 function getWeather(){
 
 	let inputAddress = localStorage.getItem("input-address");
-	let queryURL = "http://api.wunderground.com/api/8df60d93e424fab6/geolookup/conditions/q/" + inputAddress + ".json";
+	let queryURL = "https://api.wunderground.com/api/8df60d93e424fab6/geolookup/conditions/q/" + inputAddress + ".json";
 
 	$.ajax({
 		url : queryURL,				
