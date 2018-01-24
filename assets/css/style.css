@@ -170,10 +170,12 @@ a:link {
     font-size: 14px;
 }
 
+
 #bookmark-header{
     background-color: red;
     color: #fff;
 }
+
 
 #bookmarks-body{
     background-color: #000;
@@ -188,4 +190,9 @@ a:link {
 
 .fa-heart{
     color: red;
+  
 }
+#add-btn:hover {
+    background: gray;
+}
+
