@@ -70,11 +70,13 @@ function createTable(i, results){
     let newTable = $('<table width="100%"">');
     let newTr1 = $('<tr>');
     newTr1.append("<td class='td-results-l' id='results-name'>" + results.name + '</td>');
-    newTr1.append("<td class='td-results-ri' id='results-distance'>" + (results.distance * 0.0006213).toFixed(2) + ' Miles</td>');
+    newTr1.append("<td></td>");
+    newTr1.append("<td class='td-results-ri' id='results-distance'>" + (results.distance * 0.0006213).toFixed(2) + ' Mi</td>');
     newTable.append(newTr1);
 
  	let newTr2 = $('<tr>');
     newTr2.append("<td class='td-results-l'>" + results.display_phone + '</td>');
+    newTr2.append("<td></td>");
     newTr2.append("<td class='td-results-ri td-results-rating' id='"+results.id+"-rating'>" + '</td>');
     newTable.append(newTr2);
 
@@ -93,7 +95,11 @@ function createTable(i, results){
 
 	newTd1.append(newLink);
     newTr3.append(newTd1);
-    newTr3.append("<td class='td-results-ri results-bookmark' id='results-bookmark-" + i + "'" + "data-name='" + results.name + "'" + "data-url='" + results.url + "'>" + "<i class='fa fa-bookmark-o fa-1x' aria-hidden='true'></i>" + '</td>');
+    newTr3.append("<td width=12%><i class='fa fa-car' aria-hidden='true' 'data-toggle=collapse' data-mode='driving' id='driving-" 
+    	+ i + "'></i>&nbsp;&nbsp;<i class='fa fa-female' aria-hidden='true' 'data-toggle=collapse' data-mode='walking' id='walking-" + i + "'></i></td>");
+    	newTr3.append("<td class='td-results-ri results-bookmark' id='results-bookmark-" + 
+    	i + "'" + "data-name='" + results.name + "'" + "data-url='" + results.url + "'>" +
+    	 "<i class='fa fa-bookmark-o fa-1x' aria-hidden='true'></i>" + '</td>');
     newTable.append(newTr3);
 
     return newTable;

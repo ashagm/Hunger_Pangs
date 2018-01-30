@@ -204,6 +204,13 @@ function getAddressTxt(latitude, longitude, callback){
 // test function to get textual directions  
 function getDirections(start, end, id){
 
+  let mode = localStorage.getItem('mode');
+  console.log(mode);
+
+  if(mode == undefined || mode == null || mode == "")
+    mode = "WALKING";
+
+  console.log("Mode set", mode);
   // Clear past routes
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
@@ -222,7 +229,7 @@ function getDirections(start, end, id){
   directionsService.route({
     origin: start,
     destination: end,
-    travelMode: 'WALKING'
+    travelMode: mode
   }, function(response, status) {
   
     if (status === 'OK') {

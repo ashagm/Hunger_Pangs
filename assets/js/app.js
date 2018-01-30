@@ -120,6 +120,13 @@ $(document).ready(function(){
 
 		$('#bookmarks-body').html(modalContent);
 	});
+
+	$("#content-results").on('click', '.fa', function(){
+		let origin = localStorage.getItem("input-address");
+		$(this).toggleClass("red");
+		let mode = $(this).data('mode').toUpperCase();
+		localStorage.setItem('mode', mode);
+	});	
 	
 
 	$("#number-menu .dropdown-item").on('click', function(event){
