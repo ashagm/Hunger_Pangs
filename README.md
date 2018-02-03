@@ -1,6 +1,3 @@
 # Hunger Pangs
 
-## Features 
-
-* Google Maps API 
-* Yelp API 
+[Click here to view](https://ashagm.github.io/Hunger_Pangs/)
